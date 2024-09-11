@@ -30,7 +30,7 @@
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
     ?>
-    
+
     <h2>Ejercicio 2</h2>
     <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
     <?php
@@ -64,5 +64,33 @@
         unset($a, $b, $c);
     ?>
 
+<h2>Ejercicio 3</h2>
+    <p> Muestra el contenido de cada variable inmediatamente después de cada asignación, <br>
+        verificar la evolución del tipo de estas variables (imprime todos los componentes de los<br>
+        arreglo):
+    </p>
+    <?php
+        $a = "PHP5 ";
+        echo '<li>$a: '.$a.'</li>';
+
+        $z[] = &$a;
+        echo '<li>$z: ';print_r($z);
+
+        $b = "5a version de PHP";
+        echo '<li>$b: '.$b.'</li>';
+
+        $c = intval($b)*10;
+        echo '<li>$c: '.$c.'</li>';
+
+        $a .= $b;
+        echo '<li>$a: '.$a.'</li>';
+
+        settype($b, "int");
+        $b *= $c;
+        echo '<li>$b: '.$b.'</li>';
+
+        $z[0] = "MySQL";
+        echo '<li>$z: ';print_r($z);
+    ?>
 </body>
 </html>
