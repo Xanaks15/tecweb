@@ -92,5 +92,42 @@
         $z[0] = "MySQL";
         echo '<li>$z: ';print_r($z);
     ?>
+
+<h2>Ejercicio 4</h2>
+    <p> Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de<br>
+        la matriz $GLOBALS o del modificador global de PHP.
+    </p>
+
+    <?php
+        $a = "PHP5 ";
+        $GLOBALS['a'] = $a;
+        echo '<li>$a: '.$GLOBALS['a'].'</li>';
+
+        $z[] = &$a;
+        $GLOBALS['z'] = $z;
+        echo '<li>$z: ';print_r($GLOBALS['z']);
+
+        $b = "5a version de PHP";
+        $GLOBALS['b'] = $b;
+        echo '<li>$b: '.$GLOBALS['b'].'</li>';
+
+        $c = intval($b)*10;
+        $GLOBALS['c'] = $c;
+        echo '<li>$c: '.$GLOBALS['c'].'</li>';
+
+        $a .= $b;
+        $GLOBALS['a'] = $a;
+        echo '<li>$a: '.$GLOBALS['a'].'</li>';
+
+        settype($b, "int");
+        $b *= $c;
+        $GLOBALS['b'] = $b;
+        echo '<li>$b: '.$GLOBALS['b'].'</li>';
+
+        $z[0] = "MySQL";
+        $GLOBALS['z'] = $z;
+        echo '<li>$z: ';print_r($GLOBALS['z']);
+    ?>
+
 </body>
 </html>
