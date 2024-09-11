@@ -145,5 +145,38 @@
         unset($a, $b, $c);  // Limpia las variables
 
     ?>
+
+<h2>Ejercicio 6</h2>
+    <p> Dar y comprobar el valor booleano de las variables $a, $b, $c, $d, $e y $f <br>y muéstralas
+        usando la función var_dump(<datos>).</p>
+    <?php
+        $a = "0";
+        $b = "TRUE";
+        $c = FALSE;
+        $d = ($a OR $b);  // or es verdadero si uno de los dos es verdadero
+        $e = ($a AND $c); // and es verdadero si ambos son verdaderos
+        $f = ($a XOR $b); // xor es verdadero si uno de los dos es verdadero pero no ambos
+
+        echo '<li>$a: ';
+        var_dump($a);
+        echo '<li> $b: ';
+        var_dump($b);
+        echo '<li> $c: ';
+        var_dump($c);
+        echo '<li> $d: ';
+        var_dump($d);
+        echo '<li> $e: ';
+        var_dump($e);
+        echo '<li> $f: ';
+        var_dump($f);
+        echo '<br>';
+
+        echo '<p> Después investiga una función de PHP que permita transformar el valor booleano de $c y $e en uno que se pueda mostrar con un echo: </p>';
+        
+        echo '$c: '. var_export($c, true).'<br>';
+        echo '$e: '. var_export($e, true).'<br>';
+        
+        unset($a, $b, $c, $d, $e, $f); 
+    ?>
 </body>
 </html>
