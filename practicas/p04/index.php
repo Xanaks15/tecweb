@@ -50,7 +50,9 @@
 
         echo '<p>b. Agrega al código actual las siguientes asignaciones:</p>';
         $a = "PHP server";
+        echo '<li>$a = '.$a.'</li>';
         $b = &$a;
+        echo '<li>$b = '.$b.'</li>';
 
         echo '<p>c. Vuelve a mostrar el contenido de cada uno';
         echo '<li>'.$a.'</li>';
