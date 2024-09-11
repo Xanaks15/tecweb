@@ -31,5 +31,38 @@
         echo '</ul>';
     ?>
     
+    <h2>Ejercicio 2</h2>
+    <p>Proporcionar los valores de $a, $b, $c como sigue:</p>
+    <?php
+        echo '$a = “ManejadorSQL”;';
+        echo '<br>';
+        echo '$b = "MySQL";';
+        echo '<br>';
+        echo '$a = &$a;';
+        $a = 'ManejadorSQL';
+        $b = 'MySQL';
+        $c = &$a;
+
+        echo '<p>a. Ahora muestra el contenido de cada variable</p>';
+        echo '<li>'.$a.'</li>';
+        echo '<li>'.$b.'</li>';
+        echo '<li>'.$c.'</li>';
+
+        echo '<p>b. Agrega al código actual las siguientes asignaciones:</p>';
+        $a = "PHP server";
+        $b = &$a;
+
+        echo '<p>c. Vuelve a mostrar el contenido de cada uno';
+        echo '<li>'.$a.'</li>';
+        echo '<li>'.$b.'</li>';
+        echo '<li>'.$c.'</li>';
+
+        echo '<p>d. Describe en y muestra en la página obtenida qué ocurrió en el segundo bloque de asignaciones</p>';
+        echo '<h4>Respuesta:</h4>'; 
+        echo '<li> En el segundo bloque de asignaciones, la variable $a se le asigna el valor "PHP server" y la <br> variable $b se le asigna la referencia de la variable $a. Por lo tanto, al mostrar el contenido de $a y $b,<br>
+                ambos mostrarán el valor "PHP server".</li>';
+        unset($a, $b, $c);
+    ?>
+
 </body>
 </html>
