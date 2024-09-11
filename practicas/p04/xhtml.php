@@ -129,5 +129,21 @@
         echo '<li>$z: ';print_r($GLOBALS['z']);
     ?>
 
+<h2>Ejercicio 5</h2>
+    <p> Dar el valor de las variables $a, $b, $c al final del siguiente script: </p>
+    <?php
+    
+        $a = "7 personas";
+        echo '<li>$a = '.$a.'</li>';
+        $b = (integer) $a;
+        echo '<li>$b = '.$b.'</li>';
+        $a = "9E3";
+        echo '<li>$a = '.$a.'</li>';
+        $c = (double) $a;
+        echo '<li>$c = '.$c.'</li>';
+        
+        unset($a, $b, $c);  // Limpia las variables
+
+    ?>
 </body>
 </html>
