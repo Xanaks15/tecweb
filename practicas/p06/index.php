@@ -20,6 +20,32 @@
         }
     ?>
 
+<h2>Ejercicio 2</h2>
+    <p>Crea un programa para la generación repetitiva de 3 números aleatorios hasta obtener una
+    secuencia compuesta por:</p>
+    <p> impar, par, impar <br> 
+        por Ejemplo: <br>
+
+        990, 382, 786 <br>
+        422, 361, 473 <br>
+        392, 671, 914 <br>
+        <mark>213, 744, 911<mark></p>
+
+    <p>Estos números deben almacenarse en una matriz de Mx3, donde M es el número de filas y 
+        3 el número de columnas. <br> Al final muestra el número de iteraciones y la cantidad de
+        números generados: <br>
+        <br>
+        12 números obtenidos en 4 iteraciones </p>
+    <?php
+        
+        echo '<h4>Respuesta:</h4>';
+        echo '<p>';
+        generarSecuencia();
+        echo '</p>';
+    ?>
+
+
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
         Name: <input type="text" name="name"><br>
