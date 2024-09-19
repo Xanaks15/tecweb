@@ -25,7 +25,6 @@ function generarSecuencia()
     while (!$encontrado) {
         $iteraciones++;
 
-        // Genera tres números aleatorios
         $n1 = rand(100, 999);
         $n2 = rand(100, 999);
         $n3 = rand(100, 999);
@@ -40,5 +39,26 @@ function generarSecuencia()
         }
     }
 
-function esMultiplode() {
+function generarMultiplov1($num) {
+    $iteraciones = 0;
+    $num = intval($_GET['numero']);   
+    $multiplo = rand($num+1, 1000); 
+    while ( $multiplo % $num  != 0)
+    {
+        $multiplo = rand($num+1, 1000);
+        $iteraciones++;
+    }
+    echo 'Primer multiplo de '.$num.' encontrado en '.$iteraciones.' iteraciones: '.$multiplo;
+}
+
+/*function generarMultiplov2($num) {
+    $iteraciones = 0;
+    $num = $_GET['numero'];
+    do {
+        $multiplo = rand(1, 1000);
+        $iteraciones++;
+    }while ( $multiplo % $num  != 0 && $multiplo >$num);
+
+    echo 'Primer multiplo de '.$num.' encontrado en '.$iteraciones.' iteraciones: '.$multiplo;
+}*/
 }

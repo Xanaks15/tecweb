@@ -16,7 +16,7 @@
         }
         else
         {
-            echo '<h3>Introduce un número en la URL</h3>';
+            echo '<p>Introduce un número en la URL</p>';
         }
     ?>
 
@@ -44,7 +44,19 @@
         echo '</p>';
     ?>
 
-
+<h2>Ejercicio 3</h2>
+    <p>Utiliza un ciclo while para encontrar el primer número entero obtenido aleatoriamente,<br>
+        pero que además sea múltiplo de un número dado.</p>
+        <?php
+        if(isset($_GET['numero']))
+        {
+            generarMultiplov1($_GET['numero']);
+        }
+        else
+        {
+            echo '<h3>Introduce un número en la  URL</h3>';
+        }
+    ?>
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
