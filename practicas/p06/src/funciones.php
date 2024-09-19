@@ -6,11 +6,11 @@
             $num = $_GET['numero'];
             if ($num%5==0 && $num%7==0)
             {
-                echo '<h3>R= El número '.$num.' SÍ es múltiplo de 5 y 7.</h3>';
+                echo '<p>R= El número '.$num.' SÍ es múltiplo de 5 y 7.</p>';
             }
             else
             {
-                echo '<h3>R= El número '.$num.' NO es múltiplo de 5 y 7.</h3>';
+                echo '<p>R= El número '.$num.' NO es múltiplo de 5 y 7.</p>';
             }
         }
     }
@@ -34,8 +34,8 @@ function generarSecuencia()
 
         if ($n1 % 2 != 0 && $n2 % 2 == 0 && $n3 % 2 != 0) {
             $encontrado = true;  
-            // Muestra el número de iteraciones y la cantidad total de números generados
-            echo '<h4>'.$total_numeros.' números obtenidos en '.$iteraciones.' iteraciones</h4>';
+            
+            echo '<p>'.$total_numeros.' números obtenidos en '.$iteraciones.' iteraciones</p>';
         }
     }
 
@@ -61,4 +61,26 @@ function generarMultiplov1($num) {
 
     echo 'Primer multiplo de '.$num.' encontrado en '.$iteraciones.' iteraciones: '.$multiplo;
 }*/
+
+function abcNum()
+{
+    $letras = array();
+    for ($i=97; $i <= 122; $i++) { 
+        $letras[$i] = chr($i);
+    }
+    echo '<table>';
+    echo '<tr><th>Índice</th><th> Letra</th></tr>';
+    foreach ($letras as $key=> $value){
+        
+        echo '<tr>';
+        echo '<td>'.$key.'</td>';
+        echo '<td>'.$value.'</td>';
+        echo '</tr>';
+        
+    }
+    echo '</table>';
+
 }
+
+}
+
