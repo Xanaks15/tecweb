@@ -68,19 +68,35 @@ function abcNum()
     for ($i=97; $i <= 122; $i++) { 
         $letras[$i] = chr($i);
     }
-    echo '<table>';
-    echo '<tr><th>Índice</th><th> Letra</th></tr>';
-    foreach ($letras as $key=> $value){
-        
+    echo '<table style="border-collapse: collapse; border: 1px solid black;">';
+    echo '<tr><th style="border: 1px solid black; padding: 5px;">Índice</th><th style="border: 1px solid black; padding: 5px;">Letra</th></tr>';
+    
+    foreach ($letras as $key => $value) {
         echo '<tr>';
-        echo '<td>'.$key.'</td>';
-        echo '<td>'.$value.'</td>';
+        echo '<td style="border: 1px solid black; padding: 5px;">'.$key.'</td>';
+        echo '<td style="border: 1px solid black; padding: 5px;">'.$value.'</td>';
         echo '</tr>';
-        
     }
+
     echo '</table>';
 
 }
 
+function validarEdadyGenero($edad,$sexo){
+    if(isset($_POST["edad"]) && isset($_POST["sexo"]))
+    {
+        $edad = $_POST['edad'];
+        $sexo = $_POST['sexo'];
+    
+        if($sexo == "femenino" && $edad >= 18 && $edad <= 35)
+        {
+                echo '<p>Bienvenida, usted está en el rango de edad permitido.</p>';
+        }
+        else
+        {
+            echo '<h4>No cumple los requisitos</h4>';
+        }
+    }
+}
 }
 

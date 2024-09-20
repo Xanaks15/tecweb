@@ -83,8 +83,48 @@
         abcNum();
     
     ?>
+
+<h2>Ejercicio 5</h2>
+    <p> Usar las variables $edad y $sexo en una instrucción if para identificar una persona de <br>
+        sexo “femenino”, cuya edad oscile entre los 18 y 35 años y mostrar un mensaje de <br>
+        bienvenida apropiado. Por ejemplo: <br>
+        <br>
+        <em>Bienvenida, usted está en el rango de edad permitido.</em> <br>
+        <br>
+        En caso contrario, deberá devolverse otro mensaje indicando el error. <br>
+        <br>
+        ✓ Los valores para $edad y $sexo se deben obtener por medio de un formulario en HTML. <br>
+        ✓ Utilizar el la Variable Superglobal $_POST (revisar documentación). <br> 
+    </p>
+    <h3>Respuesta</h3>
+    <fieldset>
+    <legend>Formulario</legend>
+    <form action="" method="post">
+        <label for="edad">Introduce tu edad:</label>
+        <input type="tel" name="edad" id="edad" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        
+        <label for="sexo">Selecciona tu sexo:</label>
+        <select name="sexo" id="sexo" require>
+            <option value="femenino">Femenino</option>
+            <option value="masculino">Femenino</option>
+        </select>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
     
+    </fieldset>
     
+    <?php
+        if(isset($_POST["edad"]) && isset($_POST["sexo"]))
+        {
+            $edad = $_POST['edad'];
+            $sexo = $_POST['sexo'];
+            
+            validarEdadyGenero($edad, $sexo);
+        }
+    ?>
+    
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
         Name: <input type="text" name="name"><br>
