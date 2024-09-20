@@ -124,21 +124,81 @@
         }
     ?>
     
+<h2>Ejercicio 5</h2>
+    <p> Crea en código duro un arreglo asociativo que sirva para registrar el parque vehicular de <br>
+    una ciudad. Cada vehículo debe ser identificado por: <br>
+    • Matricula <br>
+    • Auto <br>
+    o Marca <br>
+    o Modelo (año)<br>
+    o Tipo (sedan|hachback|camioneta)<br>
+    • Propietario<br>
+    o Nombre<br>
+    o Ciudad<br>
+    o Dirección<br>
+    La matrícula debe tener el siguiente formato LLLNNNN, donde las L pueden ser letras de<br>
+    la A-Z y las N pueden ser números de 0-9.<br>
+    Para hacer esto toma en cuenta las siguientes instrucciones:<br>
+    ✓ Crea en código duro el registro para 15 autos<br>
+    ✓ Utiliza un único arreglo, cuya clave de cada registro sea la matricula<br>
+    ✓ Lógicamente la matricula no se puede repetir.<br>
+    ✓ Los datos del Auto deben ir dentro de un arreglo.<br>
+    ✓ Los datos del Propietario deben ir dentro de un arreglo.<br>
+    Usa print_r para mostrar la estructura general del arreglo, que luciría de forma similar al<br>
+    siguiente ejemplo:<br>
 
-    <h2>Ejemplo de POST</h2>
-    <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
-        <input type="submit">
-    </form>
-    <br>
+    Array ( [UBN6338] => Array ( [Auto] => Array ( [marca] => HONDA [modelo] => 2020<br>
+    [tipo] => camioneta ) [Propietario] => Array ( [nombre] => Alfonzo Esparza [ciudad]<br>
+    => Puebla, Pue. [direccion] => C.U., Jardines de San Manuel ) ) [UBN6339] => Array<br>
+    ( [Auto] => Array ( [marca] => MAZDA [modelo] => 2019 [tipo] => sedan ) [Propietario]<br>
+    => Array ( [nombre] => Ma. del Consuelo Molina [ciudad] => Puebla, Pue. [direccion]<br>
+    => 97 oriente ) ) )<br>
+    Para que puedas identificar la estructura te lo muestro de forma más ordenada:<br>
+    Array (<br>
+    [UBN6338] =><br>
+    Array (<br>
+    [Auto] => Array (<br>
+    [marca] => HONDA [modelo] => 2020 [tipo] => camioneta<br>
+    )<br>
+    [Propietario] => Array (<br>
+    [nombre] => Alfonzo Esparza [ciudad] => Puebla, Pue. [direccion]<br>
+    => C.U., Jardines de San Manuel<br>
+    )<br>
+    )<br>
+    [UBN6339] =><br>
+    Array (<br>
+    [Auto] => Array ( <br>
+                    [marca] => MAZDA [modelo] => 2019 [tipo] => sedan<br>
+    )<br>
+        [Propietario] => Array (<br>
+                        [nombre] => Ma. del Consuelo Molina [ciudad] => Puebla, Pue.<br>
+                        [direccion] => 97 oriente<br>
+                )<br>
+        )<br>
+    )<br>
+    </p>
+    <h3>Respuesta</h3>
     <?php
-        if(isset($_POST["name"]) && isset($_POST["email"]))
-        {
-            echo $_POST["name"];
-            echo '<br>';
-            echo $_POST["email"];
-        }
+        
     ?>
+    
+    <h2>Consulta de Vehículos</h2>
+    <form method="post">
+        Matrícula: <input type="text" name="matricula">
+        <input type="submit" value="Consultar">
+        <br>
+    </form>
+
+    <form method="post">
+        <input type="submit" name="todos" value="Mostrar Todos los Autos" style="margin-bottom: 20px">
+    </form>
+
+    <?php
+        $matricula = isset($_POST["matricula"]) ? $_POST["matricula"] : null;
+        $todos = isset($_POST["todos"]) ? $_POST["todos"] : null;
+        mostrarVehiculos($matricula, $todos);
+    ?>
+
+    
 </body>
 </html>
