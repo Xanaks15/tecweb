@@ -9,6 +9,11 @@
         .text-center {
             text-align: center; /* Centra el texto */
         }
+        .img-producto {
+        width: 100px;  /* Ajusta el ancho como desees */
+        height: 100px; /* Ajusta la altura como desees */
+        object-fit: cover; /* Asegura que la imagen se recorte adecuadamente */
+    }
     </style>
 </head>
 <body>
@@ -80,7 +85,7 @@
 					<td><?= $row['precio'] ?></td>
 					<td><?= $row['unidades'] ?></td>
 					<td><?= utf8_encode($row['detalles']) ?></td>
-					<td><img src="<?= $row['imagen'] ?>" alt="Imagen del producto"></td>
+					<td><img class="img-producto" src="<?= $row['imagen'] ?>" alt="Imagen del producto"></td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
