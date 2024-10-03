@@ -16,33 +16,35 @@
 		</style>
 	</head>
 	<body>
-		<h1>MUCHAS GRACIAS</h1>
+	<h1>MUCHAS GRACIAS</h1>
 
 		<p>Gracias por entrar al concurso de Tenis Mike&#174; "Chidos mis Tenis". Hemos recibido la siguiente información de tu registro:</p>
 
 		<h2>Acerca de ti:</h2>
 		<ul>
-			<li><strong>Nombre:</strong> <em><?php echo $_POST['name']; ?></em></li>
-			<li><strong>E-mail:</strong> <em><?php echo $_POST['email']; ?></em></li>
-			<li><strong>Télefono:</strong> <em><?php echo $_POST['phone']; ?></em></li>
+			<li><strong>Nombre:</strong> <em><?php echo isset($_POST['name']) ? $_POST['name'] : 'No proporcionado'; ?></em></li>
+			<li><strong>E-mail:</strong> <em><?php echo isset($_POST['email']) ? $_POST['email'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Télefono:</strong> <em><?php echo isset($_POST['phone']) ? $_POST['phone'] : 'No proporcionado'; ?></em></li>
 		</ul>
-		<p><strong>Tu triste historia:</strong> <em><?php echo $_POST['story']; ?></em></p>
+		<p><strong>Tu triste historia:</strong> <em><?php echo isset($_POST['story']) ? $_POST['story'] : 'No proporcionado'; ?></em></p>
 
 		<h2>Tu diseño de Tenis (si ganas)</h2>
 		<ul>
-			<li><strong>Color:</strong> <em><?php echo $_POST['color']; ?></em></li>
+			<li><strong>Color:</strong> <em><?php echo isset($_POST['color']) ? $_POST['color'] : 'No proporcionado'; ?></em></li>
 			<?php
-				$variable =  $_POST['features'];
-
-				if( !empty($variable) )
+				if( isset($_POST['features']) && !empty($_POST['features']) )
 				{
-					foreach ($variable as $key => $value) 
+					foreach ($_POST['features'] as $key => $value) 
 					{
 						echo '<li><strong>Característica '.($key+1).':</strong> <em>'.$value.'</em></li>';
 					}
 				}
+				else
+				{
+					echo '<li><strong>Características:</strong> No proporcionadas</li>';
+				}
 			?>
-			<li><strong>Talla:</strong> <em><?php echo $_POST['size']; ?></em></li>
+			<li><strong>Talla:</strong> <em><?php echo isset($_POST['size']) ? $_POST['size'] : 'No proporcionado'; ?></em></li>
 		</ul>
 		<p>
 		    <a href="http://validator.w3.org/check?uri=referer"><img

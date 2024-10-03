@@ -1,14 +1,11 @@
 <?php
-if (isset($_POST['nombre_producto']) && isset($_POST['marca_producto']) && isset($_POST['modelo_producto']) && isset($_POST['precio_producto']) && isset($_POST['detalles_producto']) && isset($_POST['unidades_productos']) && isset($_POST['imagen_producto'])) {
-
-    // Asignar los datos del formulario
-    $nombre = $_POST['nombre_producto'];
-    $marca  = $_POST['marca_producto'];
-    $modelo = $_POST['modelo_producto'];
-    $precio = $_POST['precio_producto'];
-    $detalles = $_POST['detalles_producto'];
-    $unidades = $_POST['unidades_productos'];
-    $imagen   = $_POST['imagen_producto'];  
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : 'nombre_producto';
+    $marca  = isset($_POST['marca']) ? $_POST['marca'] : 'marca_producto';
+    $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : 'modelo_producto';
+    $precio = isset($_POST['precio']) ? $_POST['precio'] : 'precio_producto';
+    $detalles = isset($_POST['detalles']) ? $_POST['detalles'] : 'detalles_producto';
+    $unidades = isset($_POST['unidades']) ? $_POST['unidades'] : 'unidades_producto';
+    $imagen   = isset($_POST['imagen']) ? $_POST['imagen'] : 'img/image.png';
 
     /** SE CREA EL OBJETO DE CONEXION */
     @$link = new mysqli('localhost', 'root', 'zorobabel', 'marketzone', 3307);	
@@ -19,16 +16,17 @@ if (isset($_POST['nombre_producto']) && isset($_POST['marca_producto']) && isset
     }
 
     /** Crear una consulta para insertar los datos */
-    $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
-    
-    if ($link->query($sql)) {
+    $sql_check = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND marca = '{$marca}' AND modelo = '{$modelo}'";
+    $result = $link->query($sql_check);
+    if($result->num_rows == 0){
+        $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+        $link->query($sql);
         echo 'Producto insertado con ID: ' . $link->insert_id;
-    } else {
-        echo 'El Producto no pudo ser insertado =( ' . $link->error;
+    }
+    else {
+        echo 'El producto ya existe en la base de datos';
     }
 
     $link->close();
-} else {
-    echo "Por favor, completa todos los campos.";
-}
+
 ?>

@@ -6,6 +6,7 @@
     <title>Práctica 4</title>
 </head>
 <body>
+    
     <h2>Ejercicio 1</h2>
     <p>Escribir programa para comprobar si un número es un múltiplo de 5 y 7</p>
     <?php

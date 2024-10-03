@@ -6,9 +6,6 @@
 </head>
 <body>
 <p>
-    <a href="https://validator.w3.org/markup/check?uri=referer"><img
-        src="https://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
-    </p>
     <h2>Ejercicio 1</h2>
     <p>Determina cuál de las siguientes variables son válidas y explica por qué:</p>
     <p>$_myvar,  $_7var,  myvar,  $myvar,  $var7,  $_element1, $house*5</p>
@@ -188,5 +185,8 @@
     echo '<li>Idioma del navegador: '.$_SERVER['HTTP_ACCEPT_LANGUAGE'].'</li>';
     echo '</ul>';
     ?>
+    <a href="https://validator.w3.org/markup/check?uri=referer"><img
+        src="https://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+    </p>
 </body>
 </html>

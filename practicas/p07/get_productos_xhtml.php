@@ -58,7 +58,7 @@
 	}
 
 	// Mostrar la tabla si hay datos
-    /*<?= ?>es una forma abreviada de escribir <?php echo ?> en PHP*/
+    /*"<?= ?>" es una forma abreviada de escribir "<?php echo ?>" en PHP*/
 	if (!empty($data)) :
 	?>
 		<table class="table">
@@ -88,6 +88,7 @@
 					<td><img class="img-producto" src="<?= $row['imagen'] ?>" alt="Imagen del producto"></td>
 				</tr>
 				<?php endforeach; ?>
+                
 			</tbody>
 		</table>
 	<?php else : ?>
