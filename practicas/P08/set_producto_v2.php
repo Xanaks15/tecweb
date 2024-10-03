@@ -1,5 +1,5 @@
 <?php
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : 'nombre_producto';
+    $nombre = $link->real_escape_string(isset($_POST['nombre']) ? $_POST['nombre'] : 'nombre_producto');
     $marca  = isset($_POST['marca']) ? $_POST['marca'] : 'marca_producto';
     $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : 'modelo_producto';
     $precio = isset($_POST['precio']) ? $_POST['precio'] : 'precio_producto';
@@ -22,6 +22,16 @@
         $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
         $link->query($sql);
         echo 'Producto insertado con ID: ' . $link->insert_id;
+        echo '<br/>';
+        // Mostrar el resumen de los datos insertados
+        echo '<strong>Resumen de los datos:</strong><br/>';
+        echo 'Nombre: ' . $nombre . '<br/>';
+        echo 'Marca: ' . $marca . '<br/>';
+        echo 'Modelo: ' . $modelo . '<br/>';
+        echo 'Precio: $' . $precio . '<br/>';
+        echo 'Detalles: ' . $detalles . '<br/>';
+        echo 'Unidades: ' . $unidades . '<br/>';
+        echo '<img src="' . $imagen . '" alt="Imagen del producto"><br/>';
     }
     else {
         echo 'El producto ya existe en la base de datos';

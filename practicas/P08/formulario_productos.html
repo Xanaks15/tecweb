@@ -22,9 +22,9 @@
             <li><label for="form-nomnre">Nombre:</label> <input type="text" name="nombre" placeholder="..." id="form-nombre" required> </li><br/>
             <li><label for="form-marca">Marca:</label> <input type="text" name="marca" placeholder="..." id="form-marca" required></li><br/>
             <li><label for="form-modelo">Modelo:</label> <input type="text" name="modelo" placeholder="..."id="form-modelo" required></li><br/>
-            <li><label for="form-precio">Precio:</label> <span>$</span> <input type="float" name="precio" placeholder="Sheintavos"id="form-precio" required></li><br/>
-            <li><label for="form-descripcion">Breve descripcion del producto</label><br><textarea name="descripcion" rows="4" cols="60" id="form-descripcion" placeholder="No más de 300 caracteres de longitud" required></textarea></li><br/>
-            <li><label for="form-unidades">Unidades:</label> <input type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" required></li><br/>
+            <li><label for="form-precio">Precio:</label> <span>$</span> <input type="number" step="0.01" name="precio" placeholder="Sheintavos, no texto"id="form-precio" required></li><br/>
+            <li><label for="form-detalles">Breve descripcion del producto</label><br><textarea name="detalles" rows="4" cols="60" id="form-detalles" placeholder="No más de 300 caracteres de longitud" required></textarea></li><br/>
+            <li><label for="form-unidades">Unidades:</label> <input type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" min="1" required></li><br/>
             <li><label for="form-imagen">Imagen:</label> <input type="text" name="imagen" placeholder="URL image" id="form-imagen" required></li><br/>
         </ul>
         
