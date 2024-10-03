@@ -1,5 +1,5 @@
 <?php
-    $nombre = $link->real_escape_string(isset($_POST['nombre']) ? $_POST['nombre'] : 'nombre_producto');
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : 'nombre_producto';
     $marca  = isset($_POST['marca']) ? $_POST['marca'] : 'marca_producto';
     $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : 'modelo_producto';
     $precio = isset($_POST['precio']) ? $_POST['precio'] : 'precio_producto';
@@ -19,12 +19,12 @@
     $sql_check = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND marca = '{$marca}' AND modelo = '{$modelo}'";
     $result = $link->query($sql_check);
     if($result->num_rows == 0){
-        $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+        $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen, eliminado) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}','{0}')";
         $link->query($sql);
-        echo 'Producto insertado con ID: ' . $link->insert_id;
         echo '<br/>';
-        // Mostrar el resumen de los datos insertados
-        echo '<strong>Resumen de los datos:</strong><br/>';
+        /** Mostrar el resumen de los datos insertados */
+        echo '<h3>Resumen de los datos:</h3><br/>';
+        echo 'Producto insertado con ID: ' . $link->insert_id . '<br/>';
         echo 'Nombre: ' . $nombre . '<br/>';
         echo 'Marca: ' . $marca . '<br/>';
         echo 'Modelo: ' . $modelo . '<br/>';
