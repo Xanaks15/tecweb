@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Producto</title>
+	<title>Productos Vigentes</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .text-center {
@@ -17,25 +17,25 @@
     </style>
 </head>
 <body>
-	<h3 class="text-center">PRODUCTOS</h3>
+	<h3 class="text-center">PRODUCTOS VIGENTES</h3>
 	<br/>
 
 	<?php
 	
-	if(isset($_GET['tope'])) {
-        $tope = $_GET['tope'];
+	if(isset($_GET['eliminado'])) {
+        $eliminado = $_GET['eliminado'];
     
-        // Verificar si $tope es un número
-        if (!is_numeric($tope)) {
-            die('El parámetro "tope" debe ser un número.');
+        // Verificar si $eliminado es un número
+        if (!is_numeric($eliminado)) {
+            die('El parámetro "eliminado" debe ser un número.');
         }
-        $tope = (int)$tope; // Convertir a entero
+        $eliminado = (int)$eliminado; // Convertir a entero
     } else {
-        die('Parámetro "tope" no detectado...');
+        die('Parámetro "eliminado" no detectado...');
     }
 
-	// Verificar que el tope no esté vacío
-	if (!empty($tope)) {
+	// Verificar que el eliminado no esté vacío
+	if (!empty($eliminado)) {
 		
 		@$link = new mysqli('localhost', 'root', 'zorobabel', 'marketzone', 3307);
 
@@ -46,7 +46,7 @@
 
 		// Ejecutar la consulta
 		$data = [];
-		if ($result = $link->query("SELECT * FROM productos WHERE unidades <= $tope")) {
+		if ($result = $link->query("SELECT * FROM productos WHERE eliminado != $eliminado")) {
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$data[] = $row;  // Guardar cada fila en el arreglo $data
 			}

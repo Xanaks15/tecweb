@@ -19,7 +19,7 @@
     $sql_check = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND marca = '{$marca}' AND modelo = '{$modelo}'";
     $result = $link->query($sql_check);
     if($result->num_rows == 0){
-        /** $sql = "INSERT INTO productos VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}','{0}')"; */
+        /** $sql = "INSERT INTO productos VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}',0)"; */
         $sql = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
         $link->query($sql);
         echo '<br/>';
