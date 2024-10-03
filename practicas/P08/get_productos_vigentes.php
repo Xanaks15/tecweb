@@ -35,7 +35,7 @@
     }
 
 	// Verificar que el eliminado no esté vacío
-	if ($eliminado >=0) {
+	if ($eliminado >=0 && $eliminado <=1) {
 		
 		@$link = new mysqli('localhost', 'root', 'zorobabel', 'marketzone', 3307);
 
