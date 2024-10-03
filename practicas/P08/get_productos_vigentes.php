@@ -35,7 +35,7 @@
     }
 
 	// Verificar que el eliminado no esté vacío
-	if (!empty($eliminado)) {
+	if ($eliminado >=0) {
 		
 		@$link = new mysqli('localhost', 'root', 'zorobabel', 'marketzone', 3307);
 
@@ -46,7 +46,7 @@
 
 		// Ejecutar la consulta
 		$data = [];
-		if ($result = $link->query("SELECT * FROM productos WHERE eliminado != $eliminado")) {
+		if ($result = $link->query("SELECT * FROM productos WHERE eliminado = $eliminado")) {
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$data[] = $row;  // Guardar cada fila en el arreglo $data
 			}
