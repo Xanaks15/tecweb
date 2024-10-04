@@ -1,10 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es">
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Productos Vigentes</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
     <style>
         .text-center {
             text-align: center; /* Centra el texto */
@@ -13,29 +12,14 @@
         width: 100px;  /* Ajusta el ancho como desees */
         height: 100px; /* Ajusta la altura como desees */
         object-fit: cover; /* Asegura que la imagen se recorte adecuadamente */
-    }
+    	}
     </style>
 </head>
 <body>
-	<h3 class="text-center">PRODUCTOS VIGENTES</h3>
-	<br/>
+	<h3 class="text-center">PRODUCTOS VIGENTES<br/></h3>
+	
 
 	<?php
-	
-	if(isset($_GET['eliminado'])) {
-        $eliminado = $_GET['eliminado'];
-    
-        // Verificar si $eliminado es un número
-        if (!is_numeric($eliminado)) {
-            die('El parámetro "eliminado" debe ser un número.');
-        }
-        $eliminado = (int)$eliminado; // Convertir a entero
-    } else {
-        die('Parámetro "eliminado" no detectado...');
-    }
-
-	// Verificar que el eliminado no esté vacío
-	if ($eliminado >=0 && $eliminado <=1) {
 		
 		@$link = new mysqli('localhost', 'root', 'zorobabel', 'marketzone', 3307);
 
@@ -46,7 +30,7 @@
 
 		// Ejecutar la consulta
 		$data = [];
-		if ($result = $link->query("SELECT * FROM productos WHERE eliminado = $eliminado")) {
+		if ($result = $link->query("SELECT * FROM productos WHERE eliminado = 0")) {
 			while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 				$data[] = $row;  // Guardar cada fila en el arreglo $data
 			}
@@ -55,7 +39,6 @@
 		}
 
 		$link->close(); // Cerrar la conexión
-	}
 
 	// Mostrar la tabla si hay datos
     /*"<?= ?>" es una forma abreviada de escribir "<?php echo ?>" en PHP*/
@@ -85,7 +68,7 @@
 					<td><?= $row['precio'] ?></td>
 					<td><?= $row['unidades'] ?></td>
 					<td><?= utf8_encode($row['detalles']) ?></td>
-					<td><img class="img-producto" src="<?= $row['imagen'] ?>" alt="Imagen del producto"></td>
+					<td><img class="img-producto" src="<?= $row['imagen'] ?>" alt="Imagen del producto"/></td>
 				</tr>
 				<?php endforeach; ?>
                 
