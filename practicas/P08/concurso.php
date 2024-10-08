@@ -16,36 +16,20 @@
 		</style>
 	</head>
 	<body>
-	<h1>MUCHAS GRACIAS</h1>
+	<h1>Tu articulo se subió correctamente</h1>
 
-		<p>Gracias por entrar al concurso de Tenis Mike&#174; "Chidos mis Tenis". Hemos recibido la siguiente información de tu registro:</p>
-
-		<h2>Acerca de ti:</h2>
 		<ul>
-			<li><strong>Nombre:</strong> <em><?php echo isset($_POST['name']) ? $_POST['name'] : 'No proporcionado'; ?></em></li>
-			<li><strong>E-mail:</strong> <em><?php echo isset($_POST['email']) ? $_POST['email'] : 'No proporcionado'; ?></em></li>
-			<li><strong>Télefono:</strong> <em><?php echo isset($_POST['phone']) ? $_POST['phone'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Nombre:</strong> <em><?php echo isset($_POST['nombre']) ? $_POST['nombre'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Modelo:</strong> <em><?php echo isset($_POST['marca']) ? $_POST['marca'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Precio:</strong> <em><?php echo isset($_POST['precio']) ? $_POST['precio'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Detalles:</strong> <em><?php echo isset($_POST['detalles']) ? $_POST['detalles'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Unidades:</strong> <em><?php echo isset($_POST['unidades']) ? $_POST['unidades'] : 'No proporcionado'; ?></em></li>
+			<li><strong>Imagen:</strong> <em><?php echo isset($_POST['imagen']) ? $_POST['imagen'] : 'No proporcionado'; ?></em></li>
+			
 		</ul>
-		<p><strong>Tu triste historia:</strong> <em><?php echo isset($_POST['story']) ? $_POST['story'] : 'No proporcionado'; ?></em></p>
+		
 
-		<h2>Tu diseño de Tenis (si ganas)</h2>
-		<ul>
-			<li><strong>Color:</strong> <em><?php echo isset($_POST['color']) ? $_POST['color'] : 'No proporcionado'; ?></em></li>
-			<?php
-				if( isset($_POST['features']) && !empty($_POST['features']) )
-				{
-					foreach ($_POST['features'] as $key => $value) 
-					{
-						echo '<li><strong>Característica '.($key+1).':</strong> <em>'.$value.'</em></li>';
-					}
-				}
-				else
-				{
-					echo '<li><strong>Características:</strong> No proporcionadas</li>';
-				}
-			?>
-			<li><strong>Talla:</strong> <em><?php echo isset($_POST['size']) ? $_POST['size'] : 'No proporcionado'; ?></em></li>
-		</ul>
+		
 		<p>
 		    <a href="http://validator.w3.org/check?uri=referer"><img
 		      src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
