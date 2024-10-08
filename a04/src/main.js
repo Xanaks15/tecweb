@@ -28,6 +28,15 @@ function showVars(){
     document.write( casado );
 }
 
-function ejemplo3(){
-    
+function inputData(){
+    var nombre;
+    var edad;
+    nombre = prompt('Ingresa tu nombre:', '');
+    edad = prompt('Ingresa tu edad:', '');
+    document.write('Hola ');
+    document.write(nombre);
+    document.write(' así que tienes ');
+    document.write(edad);
+    document.write(' años');
 }
+
