@@ -15,8 +15,8 @@
   <body>
     <h1>Registro de Nuevo Producto</h1>
 
-    <form id="formularioProductoNuevo" action="http://localhost/tecweb/practicas/p08/set_producto_v2.php" method="post">
-
+    <form id="formularioProductoNuevo" action="http://localhost/tecweb/practicas/p09/formulario.php" method="post">
+      <p>http://localhost/tecweb/practicas/p08/set_producto_v2.php</p>
       <fieldset>
         <legend>Rellena cada uno de los campos</legend>
         <ul>
@@ -30,9 +30,9 @@
                 <option value="Sony">Sony</option>
                 <option value="Xiaomi">Xiaomi</option>
               </select></p>
-            <li><label for="modelo">Modelo:</label> <input type="text" name="modelo" placeholder="..."id="form-modelo" ></li><br/>
-            <li><label for="precio">Precio:</label> <span>$</span> <input type="number" step="0.01" name="precio" placeholder="Sheintavos, no texto"id="form-precio" ></li><br/>
-            <li><label for="detalles">Breve descripcion del producto:</label><br><textarea name="detalles" rows="4" cols="60" id="form-detalles" placeholder="No más de 300 caracteres de longitud" ></textarea></li><br/>
+            <li><label for="modelo">Modelo:</label> <input type="text" name="modelo" placeholder="..."id="form-modelo" onblur="checkModel(this)"></li><br/>
+            <li><label for="precio">Precio:</label> <span>$</span> <input type="number" step="0.01" name="precio" placeholder="Sheintavos, no texto"id="form-precio" onblur="checkPrice(this)" ></li><br/>
+            <li><label for="detalles">Detalles (opcional):</label><br><textarea name="detalles" rows="4" cols="60" id="form-detalles" placeholder="No más de 250 caracteres de longitud" onblur="checkDetalles(this)" ></textarea></li><br/>
             <li><label for="unidades">Unidades:</label> <input type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" min="1" ></li><br/>
             <li><label for="imagen">Imagen:</label> <input type="text" name="imagen" placeholder="URL image" id="form-imagen" ></li><br/>
         </ul>
