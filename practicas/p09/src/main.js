@@ -87,3 +87,52 @@ function checkDetalles(campo){
     }
     return true;
 }
+
+function checkUnidades(campo){
+    unidades = campo.value;
+    if(unidades.length == 0){
+        while(unidades.length == 0){
+            alert('Campo requerido');
+            return false;
+        }
+    }
+    else{
+        if(unidades < 0){
+            alert('Cantidad minima 0');
+            campo.value = '';
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkImg(campo){
+    imagen = campo.value;
+    if(imagen.length == 0){
+        campo.value = 'img/pre.png';
+        return true;
+    }
+    else{
+        if(imagen.length > 0){
+            if(!/^img\/\w+\.(jpg|png)$/.test(imagen)){
+                alert('URL no valida. Debe ser en el formato img/nombre.(jpg o png)');
+                campo.value = '';
+                return false;
+            }
+        }
+    }
+}
+
+function checkForm(){
+    var form = document.getElementById('form');
+    var nombre = document.getElementById('nombre');
+    var marca = document.getElementById('marca');
+    var modelo = document.getElementById('modelo');
+    var precio = document.getElementById('precio');
+    var detalles = document.getElementById('detalles');
+    var unidades = document.getElementById('unidades');
+
+    if(checkName(nombre) && checkMarca(marca) && checkModel(modelo) && checkPrice(precio) && checkDetalles(detalles) && checkUnidades(unidades)){
+        form.submit();
+    }
+}

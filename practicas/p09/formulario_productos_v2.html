@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="utf-8" >
-    <title>Registro de Producto</title>
+    <title>Actualizar Producto</title>
     <script src="./src/main.js"></script>
     <style type="text/css">
       ol, ul { 
@@ -31,10 +31,10 @@
                 <option value="Xiaomi">Xiaomi</option>
               </select></p>
             <li><label for="modelo">Modelo:</label> <input type="text" name="modelo" placeholder="..."id="form-modelo" onblur="checkModel(this)"></li><br/>
-            <li><label for="precio">Precio:</label> <span>$</span> <input type="number" step="0.01" name="precio" placeholder="Sheintavos, no texto"id="form-precio" onblur="checkPrice(this)" ></li><br/>
+            <li><label for="precio">Precio:</label> <span>$</span> <input type="number" step="0.01" name="precio" placeholder="Mayor a 99.99"id="form-precio" onblur="checkPrice(this)" ></li><br/>
             <li><label for="detalles">Detalles (opcional):</label><br><textarea name="detalles" rows="4" cols="60" id="form-detalles" placeholder="No más de 250 caracteres de longitud" onblur="checkDetalles(this)" ></textarea></li><br/>
-            <li><label for="unidades">Unidades:</label> <input type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" min="1" ></li><br/>
-            <li><label for="imagen">Imagen:</label> <input type="text" name="imagen" placeholder="URL image" id="form-imagen" ></li><br/>
+            <li><label for="unidades">Unidades:</label> <input type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" onblur="checkUnidades(this)"></li><br/>
+            <li><label for="imagen">Imagen:</label> <input type="text" name="imagen" placeholder="URL image" id="form-imagen" onblur="checkImg(this)"></li><br/>
         </ul>
         
       </fieldset>
