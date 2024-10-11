@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Producto</title>
+	<script src="./src/main.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         .text-center {
@@ -86,6 +87,7 @@
 					<td><?= $row['unidades'] ?></td>
 					<td><?= utf8_encode($row['detalles']) ?></td>
 					<td><img class="img-producto" src="<?= $row['imagen'] ?>" alt="Imagen del producto"></td>
+					<td><p class="btn btn-primary" style="background-color: green" onclick="show(event)">Modificar</p></td>
 				</tr>
 				<?php endforeach; ?>
                 

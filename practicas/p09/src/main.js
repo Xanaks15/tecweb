@@ -107,7 +107,8 @@ function checkImg(){
         return true;
         val[7]=0
     }
-    else{
+    
+    /*else{
         if(imagen.length > 0){
             if(!/^img\/\w+\.(jpg|png)$/.test(imagen)){
                 alert('URL no valida. Debe ser en el formato img/nombre.(jpg o png)');
@@ -115,7 +116,7 @@ function checkImg(){
                 return false;
             }
         }
-    }
+    }*/
     return true;
 }
 
@@ -128,3 +129,72 @@ function checkForm(){
         return true;
     }
 }
+
+function show(event) {
+    var row = event.target.parentNode.parentNode;
+
+    var nombre = row.cells[1].innerHTML;
+    var marca = row.cells[2].innerHTML;
+    var modelo = row.cells[3].innerHTML;
+    var precio = row.cells[4].innerHTML;
+    var unidades = row.cells[5].innerHTML;
+    var detalles = row.cells[6].innerHTML;
+    var imagen = row.cells[7].querySelector('img').src;
+
+    alert("Nombre: " + nombre + "\nMarca: " + marca + "\nModelo: " + modelo + "\nPrecio: " + precio + "\nDetalles: " + detalles + "\nUnidades: " + unidades + "\nImagen: " + imagen);
+
+    send2form(nombre, marca, modelo, precio, unidades, detalles, imagen);
+}
+
+function send2form(nombre, marca, modelo, precio, unidades, detalles, imagen) {
+        var form = document.createElement("form");
+
+        var nombreIn = document.createElement("input");
+        nombreIn.type = 'hidden';
+        nombreIn.name = 'nombre';
+        nombreIn.value = nombre;
+        form.appendChild(nombreIn);
+
+        var marcaIn = document.createElement("input");
+        marcaIn.type = 'hidden';
+        marcaIn.name = 'marca';
+        marcaIn.value = marca;
+        form.appendChild(marcaIn);
+
+        var modeloIn = document.createElement("input");
+        modeloIn.type = 'hidden';
+        modeloIn.name = 'modelo';
+        modeloIn.value = modelo;
+        form.appendChild(modeloIn);
+
+        var precioIn = document.createElement("input");
+        precioIn.type = 'hidden';
+        precioIn.name = 'precio';
+        precioIn.value = precio;
+        form.appendChild(precioIn);
+
+        var unidadesIn = document.createElement("input");
+        unidadesIn.type = 'hidden';
+        unidadesIn.name = 'unidades';
+        unidadesIn.value = unidades;
+        form.appendChild(unidadesIn);
+
+        var detallesIn = document.createElement("input");
+        detallesIn.type = 'hidden';
+        detallesIn.name = 'detalles';
+        detallesIn.value = detalles;
+        form.appendChild(detallesIn);
+
+        var imagenIn = document.createElement("input");
+        imagenIn.type = 'hidden';
+        imagenIn.name = 'imagen';
+        imagenIn.value = imagen;
+        form.appendChild(imagenIn);
+
+        form.method = 'POST';
+        form.action = 'http://localhost/tecweb/practicas/p09/formulario_productos_v2.php';
+
+        // Añadir el formulario al cuerpo del documento y enviarlo
+        document.body.appendChild(form);
+        form.submit();
+    }
