@@ -38,20 +38,23 @@ function checkMarca(){
 
 function checkModel(){
     var modelo = document.getElementById('modelo').value;
-    if(modelo.length == 0){
+    
+    // Verifica si el campo está vacío
+    if (modelo.length == 0) {
         alert('Ingresa un modelo');
         return false;
-    }
-    else{
-        /*Validad que el campo sea alfanumerico y menor a 25 caracateres*/
-        if(!/^[a-zA-Z0-9]+$/.test(modelo) || modelo.length > 25){
-            alert('El modelo debe ser alfanumerico y menor a 25 caracteres');
+    } 
+    else {
+        // Valida que sea alfanumérico y menor a 25 caracteres
+        if (!/^[a-zA-Z0-9 ]+$/.test(modelo) || modelo.length > 25) {
+            alert('El modelo debe ser alfanumérico y menor a 25 caracteres');
             document.getElementById('modelo').value = '';
             return false;
         }
-    }
+    }  
     return true; 
 }
+
 
 function checkPrice(){
     var precio = document.getElementById('precio').value;
@@ -133,6 +136,7 @@ function checkForm(){
 function show(event) {
     var row = event.target.parentNode.parentNode;
 
+    var id = row.cells[0].innerHTML;
     var nombre = row.cells[1].innerHTML;
     var marca = row.cells[2].innerHTML;
     var modelo = row.cells[3].innerHTML;
@@ -141,13 +145,19 @@ function show(event) {
     var detalles = row.cells[6].innerHTML;
     var imagen = row.cells[7].querySelector('img').src;
 
-    alert("Nombre: " + nombre + "\nMarca: " + marca + "\nModelo: " + modelo + "\nPrecio: " + precio + "\nDetalles: " + detalles + "\nUnidades: " + unidades + "\nImagen: " + imagen);
+    alert("Id: "+ id +"\nNombre: " + nombre + "\nMarca: " + marca + "\nModelo: " + modelo + "\nPrecio: " + precio + "\nDetalles: " + detalles + "\nUnidades: " + unidades + "\nImagen: " + imagen);
 
-    send2form(nombre, marca, modelo, precio, unidades, detalles, imagen);
+    send2form(id,nombre, marca, modelo, precio, unidades, detalles, imagen);
 }
 
-function send2form(nombre, marca, modelo, precio, unidades, detalles, imagen) {
+function send2form(id, nombre, marca, modelo, precio, unidades, detalles, imagen) {
         var form = document.createElement("form");
+        
+        var idIn = document.createElement("input");
+        idIn.type = 'hidden';
+        idIn.name = 'id';
+        idIn.value = id;
+        form.appendChild(idIn);
 
         var nombreIn = document.createElement("input");
         nombreIn.type = 'hidden';

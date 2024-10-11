@@ -73,6 +73,7 @@
 					<th scope="col">Unidades</th>
 					<th scope="col">Detalles</th>
 					<th scope="col">Imagen</th>
+					<th scope="col">Acción</th>
 				</tr>
 			</thead>
 			<tbody>
