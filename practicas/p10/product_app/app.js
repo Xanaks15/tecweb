@@ -8,6 +8,23 @@ var baseJSON = {
     "imagen": "img/default.png"
 };
 
+
+function checkName(){
+    var nombre = document.getElementById('name').value;
+    if(nombre.length == 0){
+        alert('Ingresa un nombre');
+        return false;
+    }
+    else{
+        if(nombre.length > 100){
+            alert('El nombre debe tener maximo 100 caracteres');
+            document.getElementById('nombre').value = '';
+            return false;
+        }
+    return true;
+    }
+}
+
 // FUNCIÓN CALLBACK DE BOTÓN "Buscar"
 function buscarID(e) {
     /**
@@ -60,31 +77,112 @@ function buscarID(e) {
     client.send("id="+id);
 }
 
+function init() {
+    /**
+     * Convierte el JSON a string para poder mostrarlo
+     * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
+     */
+    var JsonString = JSON.stringify(baseJSON,null,2);
+    document.getElementById("description").value = JsonString;
+}
+function validarJson(finalJSON) {
+    // Validar marca
+    const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
+    if (!finalJSON.marca || finalJSON.marca.length == 0) {
+        alert('Selecciona una marca');
+        return false;
+    }
+    if (!marcasValidas.includes(finalJSON.marca)) {
+        alert('Marca no válida, selecciona una válida (Apple, Samsung, Amazon, Sony, Xiaomi)');
+        return false;
+    }
+
+    // Validar modelo
+    if (!finalJSON.modelo || finalJSON.modelo.length == 0) {
+        alert('Ingresa un modelo');
+        return false;
+    }
+    if (!/^[a-zA-Z0-9 ]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
+        alert('El modelo debe ser alfanumérico y menor a 25 caracteres');
+        return false;
+    }
+
+    // Validar precio
+    if (!finalJSON.precio || finalJSON.precio.length == 0) {
+        alert('Ingresa el precio');
+        return false;
+    }
+    if (finalJSON.precio < 99.99) {
+        alert('El precio debe ser mayor a $99.99');
+        return false;
+    }
+
+    // Validar detalles
+    if (finalJSON.detalles && finalJSON.detalles.length > 250) {
+        alert('Los detalles deben tener máximo 250 caracteres');
+        return false;
+    }
+
+    // Validar unidades
+    if (finalJSON.unidades == null || finalJSON.unidades < 0) {
+        alert('Cantidad mínima de unidades es 0');
+        return false;
+    }
+
+    // Validar imagen
+    if (!finalJSON.imagen || finalJSON.imagen.length == 0) {
+        finalJSON.imagen = 'img/default.png';  // Asignar una imagen por defecto
+    }
+
+    // Si pasa todas las validaciones
+    return true;
+}
+
 // FUNCIÓN CALLBACK DE BOTÓN "Agregar Producto"
 function agregarProducto(e) {
     e.preventDefault();
 
     // SE OBTIENE DESDE EL FORMULARIO EL JSON A ENVIAR
     var productoJsonString = document.getElementById('description').value;
+    
     // SE CONVIERTE EL JSON DE STRING A OBJETO
     var finalJSON = JSON.parse(productoJsonString);
+    
     // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
     finalJSON['nombre'] = document.getElementById('name').value;
+
+    // VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
+    if (!validarJson(finalJSON)) {
+        // Si la validación falla, detener el proceso de envío
+        return;
+    }
+
     // SE OBTIENE EL STRING DEL JSON FINAL
-    productoJsonString = JSON.stringify(finalJSON,null,2);
+    productoJsonString = JSON.stringify(finalJSON, null, 2);
 
     // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
     var client = getXMLHttpRequest();
     client.open('POST', './backend/create.php', true);
     client.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
+    
     client.onreadystatechange = function () {
         // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
         if (client.readyState == 4 && client.status == 200) {
             console.log(client.responseText);
+            let response = JSON.parse(client.responseText);
+            if (response.success) {
+                window.alert(response.message);  // Mensaje de éxito
+            } else {
+                window.alert('Error: ' + response.message);  // Mensaje de error
+            }
         }
+        
     };
+
+    // SE ENVÍA EL JSON VALIDADO AL SERVIDOR
     client.send(productoJsonString);
 }
+
 
 // SE CREA EL OBJETO DE CONEXIÓN COMPATIBLE CON EL NAVEGADOR
 function getXMLHttpRequest() {
@@ -112,14 +210,7 @@ function getXMLHttpRequest() {
     return objetoAjax;
 }
 
-function init() {
-    /**
-     * Convierte el JSON a string para poder mostrarlo
-     * ver: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON
-     */
-    var JsonString = JSON.stringify(baseJSON,null,2);
-    document.getElementById("description").value = JsonString;
-}
+
 
 function buscarProducto(e) {
     e.preventDefault();
