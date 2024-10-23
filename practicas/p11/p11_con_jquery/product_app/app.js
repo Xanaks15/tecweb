@@ -209,10 +209,6 @@ $(document).ready(function() {
 
             $('#description').val(JSON.stringify(productWithoutNameAndId, null, 4));
             edit = true;
-            if (!validarJson(finalJSON)) {
-                //   Si la validación falla, detener el proceso de envío
-                return;
-            }
         })
     });
 
