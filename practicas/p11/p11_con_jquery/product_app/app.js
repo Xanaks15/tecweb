@@ -136,12 +136,14 @@ $(document).ready(function() {
     }
 
     $(document).on('click','.product-delete', function(){
-        let element = $(this)[0].parentElement.parentElement;
-        let id = $(element).attr('productId');
-        $.get('backend/product-delete.php', {id}, function(response){
-            console.log(response);
-            fetchProduct();
+        if(confirm('Estas seguro de querer eliminar el producto?')){
+            let element = $(this)[0].parentElement.parentElement;
+            let id = $(element).attr('productId');
+            $.get('backend/product-delete.php', {id}, function(response){
+                console.log(response);
+                fetchProduct();
         })
+        } 
     })
 
 });
