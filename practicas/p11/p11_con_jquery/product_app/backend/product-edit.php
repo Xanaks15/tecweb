@@ -13,10 +13,10 @@ if (!empty($producto)) {
     $jsonOBJ = json_decode($producto);
 
     // Verificar que el nombre del producto existe en el JSON
-    if (isset($jsonOBJ->nombre)) {
+    if (isset($jsonOBJ->id)) {
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
-        $nombre = $jsonOBJ->nombre;
-        $sql = "SELECT * FROM productos WHERE nombre = '{$nombre}' AND eliminado = 0";
+        $id = $jsonOBJ->id;
+        $sql = "SELECT * FROM productos WHERE id = '{$id}' AND eliminado = 0";
         $result = $conexion->query($sql);
 
         // Verificar si existe el producto con el nombre proporcionado
@@ -24,13 +24,14 @@ if (!empty($producto)) {
             // SE PREPARA EL UPDATE
             $conexion->set_charset("utf8");
             $sql = "UPDATE productos SET
+                        nombre = '{$jsonOBJ->nombre}',
                         marca = '{$jsonOBJ->marca}',
                         modelo = '{$jsonOBJ->modelo}',
                         precio = {$jsonOBJ->precio},
                         detalles = '{$jsonOBJ->detalles}',
                         unidades = {$jsonOBJ->unidades},
                         imagen = '{$jsonOBJ->imagen}'
-                    WHERE nombre = '{$nombre}' AND eliminado = 0";
+                    WHERE id = '{$id}' AND eliminado = 0";
 
             // Ejecutar la consulta de actualización
             if ($conexion->query($sql)) {

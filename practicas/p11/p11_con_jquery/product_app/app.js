@@ -15,7 +15,7 @@ function init() {
      */
     var JsonString = JSON.stringify(baseJSON,null,2);
     document.getElementById("description").value = JsonString;
-    fetchProduct();
+    // fetchProduct();
 }
 
 $(document).ready(function() {
@@ -68,7 +68,6 @@ $(document).ready(function() {
                     $('#product-result').show();
                     $('#container').html(template_bar);
                     $('#products').html(template);
-                    fetchProduct();
                 }
             })
         }else {
@@ -91,18 +90,13 @@ $(document).ready(function() {
         
         // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
         finalJSON['nombre'] = document.getElementById('name').value;
-
+        finalJSON['id'] = document.getElementById('productId').value;
          //VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
         if (!validarJson(finalJSON)) {
             //   Si la validación falla, detener el proceso de envío
             return;
         }
-
-        // SE OBTIENE EL STRING DEL JSON FINAL
-        finalJSON['id'] = document.getElementById('productId').value;
-
         productoJsonString = JSON.stringify(finalJSON, null, 2);
-        console.log(productoJsonString);
         // Asignar el ID al objeto JSON
         let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
         $.ajax({
@@ -111,6 +105,7 @@ $(document).ready(function() {
             data: JSON.stringify(finalJSON), // Convertir el objeto JSON a string
             contentType: 'application/json; charset=utf-8', // Enviar como JSON
             success: function(response) {
+                console.log(finalJSON);  // Mostrar el JSON enviado
                 console.log(response);  // Mostrar la respuesta del servidor
                 fetchProduct();  // Actualizar la lista de productos
                   // Resetear el formulario correctamente
@@ -192,6 +187,7 @@ $(document).ready(function() {
                     `;
                 $('#product-result').show();
                 $('#container').html(template_bar);
+                fetchProduct();
         })
         } 
     })
@@ -202,11 +198,11 @@ $(document).ready(function() {
         $.post('./backend/product-single.php', {id}, function(response){
             const product = JSON.parse(response);
             $('#name').val(product[0].nombre);
+            $('#productId').val(product[0].id);
             let productWithoutNameAndId = {...product[0]};
             delete productWithoutNameAndId.nombre;
             delete productWithoutNameAndId.id;
             delete productWithoutNameAndId.eliminado;
-
             $('#description').val(JSON.stringify(productWithoutNameAndId, null, 4));
             edit = true;
         })
@@ -215,6 +211,15 @@ $(document).ready(function() {
 });
 
 function validarJson(finalJSON) {
+
+    // Validar nombre
+    if (!finalJSON.nombre || finalJSON.nombre.length == 0 ) {
+        alert('Ingresa un nombre');
+        return false;
+    }else if (finalJSON.nombre.length > 50) {
+        alert('El nombre debe tener máximo 50 caracteres');
+        return false	
+    }
     // Validar marca
     const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
     if (!finalJSON.marca || finalJSON.marca.length == 0) {
