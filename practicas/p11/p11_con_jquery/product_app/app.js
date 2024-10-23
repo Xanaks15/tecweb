@@ -133,8 +133,7 @@ $(document).ready(function() {
             success: function(response){
                 let productos = JSON.parse(response);
                 let template = ``;
-                let template_bar = ``;
-                let respuesta = JSON.parse(response);
+    
                 productos.forEach(producto =>{
                     let descripcion = '';
                         descripcion += '<li>precio: '+producto.precio+'</li>';

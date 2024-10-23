@@ -12,7 +12,7 @@ if (!empty($producto)) {
     // SE TRANSFORMA EL STRING DEL JSON A OBJETO
     $jsonOBJ = json_decode($producto);
 
-    // Verificar que el nombre del producto existe en el JSON
+    // Verificar que el id del producto existe en el JSON
     if (isset($jsonOBJ->id)) {
         // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
         $id = $jsonOBJ->id;
