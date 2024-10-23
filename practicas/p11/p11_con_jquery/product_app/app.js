@@ -23,7 +23,7 @@ $(document).ready(function() {
 
     // buscarProducto
     $('#product-result').hide();
-
+    fetchProduct();
     $('#search').keyup(function() {
         if($('#search').val()){
             let search = $('#search').val();
@@ -39,6 +39,26 @@ $(document).ready(function() {
                     productos.forEach(producto => {
                         template_bar += `
                         <li>${producto.nombre}</il>
+                        `;
+
+                        let descripcion = '';
+                        descripcion += '<li>precio: '+producto.precio+'</li>';
+                        descripcion += '<li>unidades: '+producto.unidades+'</li>';
+                        descripcion += '<li>modelo: '+producto.modelo+'</li>';
+                        descripcion += '<li>marca: '+producto.marca+'</li>';
+                        descripcion += '<li>detalles: '+producto.detalles+'</li>';
+                    
+                        template += `
+                            <tr productId="${producto.id}">
+                                <td>${producto.id}</td>
+                                <td>${producto.nombre}</td>
+                                <td><ul>${descripcion}</ul></td>
+                                <td>
+                                    <button class="product-delete btn btn-danger">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
                         `;
                     
                     });
@@ -74,10 +94,51 @@ $(document).ready(function() {
         console.log(productoJsonString);
 
         $.post('backend/product-add.php',productoJsonString, function(response){
-            console.log(response);
+            // console.log(response);
+            fetchProduct();
             $('product-form').trigger('reset');
         });
     });
+
+    function fetchProduct(){
+        $.ajax( {
+            url:'backend/product-list.php',
+            type: 'GET',
+            success: function(response){
+                let productos = JSON.parse(response);
+                let template = ``;
+    
+                productos.forEach(producto =>{
+                    let descripcion = '';
+                        descripcion += '<li>precio: '+producto.precio+'</li>';
+                        descripcion += '<li>unidades: '+producto.unidades+'</li>';
+                        descripcion += '<li>modelo: '+producto.modelo+'</li>';
+                        descripcion += '<li>marca: '+producto.marca+'</li>';
+                        descripcion += '<li>detalles: '+producto.detalles+'</li>';
+                    
+                        template += `
+                            <tr productId="${producto.id}">
+                                <td>${producto.id}</td>
+                                <td>${producto.nombre}</td>
+                                <td><ul>${descripcion}</ul></td>
+                                <td>
+                                    <button class="product-delete btn btn-danger">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                })
+                $('#products').html(template);
+    
+            }
+        });
+    }
+
+    $(document).on('click','.product-delete', function(){
+        $(this)
+    })
+
 });
 
 function validarJson(finalJSON) {
