@@ -20,7 +20,7 @@ function init() {
 }
 
 $(document).ready(function() {
-
+    let edit = false;
     // buscarProducto
     $('#product-result').hide();
     fetchProduct();
@@ -34,9 +34,10 @@ $(document).ready(function() {
                 success: function(response){
                     // console.log(response);
                     let productos = JSON.parse(response);
-                    let template = '';
-                    let template_bar = '';
+                    
                     productos.forEach(producto => {
+
+                        let template = '';
                         template_bar += `
                         <li>${producto.nombre}</il>
                         `;
@@ -90,10 +91,12 @@ $(document).ready(function() {
         }*/
 
         // SE OBTIENE EL STRING DEL JSON FINAL
+        
         productoJsonString = JSON.stringify(finalJSON, null, 2);
         console.log(productoJsonString);
-
-        $.post('backend/product-add.php',productoJsonString, function(response){
+        // Asignar el ID al objeto JSON
+        let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
+        $.post(url,productoJsonString, function(response){
             // console.log(response);
             fetchProduct();
             $('product-form').trigger('reset');
@@ -119,7 +122,9 @@ $(document).ready(function() {
                         template += `
                             <tr productId="${producto.id}">
                                 <td>${producto.id}</td>
-                                <td>${producto.nombre}</td>
+                                <td>
+                                    <a href="#" class="product-item">${producto.nombre}</a>
+                                </td>
                                 <td><ul>${descripcion}</ul></td>
                                 <td>
                                     <button class="product-delete btn btn-danger">
@@ -144,6 +149,32 @@ $(document).ready(function() {
                 fetchProduct();
         })
         } 
+    })
+
+    $(document).on('click','.product-item', function(){
+        let element = $(this)[0].parentElement.parentElement;
+        let id = $(element).attr('productId');
+        $.post('backend/product-single.php', { id }, function(response) {
+    const producto = JSON.parse(response);
+
+    // Asignar solo el nombre al campo de nombre
+    $('#name').val(producto.Nombre);
+
+    // Crear un objeto excluyendo el nombre
+    const productoSinNombre = {
+        Precio: producto.Precio,
+        Unidades: producto.Unidades,
+        Modelo: producto.Modelo,
+        Marca: producto.Marca,
+        Detalles: producto.Detalles
+    };
+
+    // Asignar el resto del objeto a la descripción
+    $('#description').val(JSON.stringify(productoSinNombre, null, 2));
+    $('#productId').val(producto.id)
+    edit = true;
+});
+
     })
 
 });
