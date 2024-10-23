@@ -34,11 +34,13 @@ $(document).ready(function() {
                 success: function(response){
                     // console.log(response);
                     let productos = JSON.parse(response);
-                    
+                    let template = '';
+                    let template_bar = '';
                     productos.forEach(producto => {
 
-                        let template = '';
+                        
                         template_bar += `
+
                         <li>${producto.nombre}</il>
                         `;
 
@@ -66,6 +68,7 @@ $(document).ready(function() {
                     $('#product-result').show();
                     $('#container').html(template_bar);
                     $('#products').html(template);
+                    fetchProduct();
                 }
             })
         }
@@ -84,22 +87,41 @@ $(document).ready(function() {
         // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
         finalJSON['nombre'] = document.getElementById('name').value;
 
-        /*  VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
-        if (!validarJson(finalJSON)) {
+         //VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
+        /*if (!validarJson(finalJSON)) {
             //   Si la validación falla, detener el proceso de envío
             return;
         }*/
 
         // SE OBTIENE EL STRING DEL JSON FINAL
-        
+        finalJSON['id'] = document.getElementById('productId').value;
+
         productoJsonString = JSON.stringify(finalJSON, null, 2);
         console.log(productoJsonString);
         // Asignar el ID al objeto JSON
         let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
-        $.post(url,productoJsonString, function(response){
-            // console.log(response);
-            fetchProduct();
-            $('product-form').trigger('reset');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: JSON.stringify(finalJSON), // Convertir el objeto JSON a string
+            contentType: 'application/json; charset=utf-8', // Enviar como JSON
+            success: function(response) {
+                console.log(response);  // Mostrar la respuesta del servidor
+                fetchProduct();  // Actualizar la lista de productos
+                  // Resetear el formulario correctamente
+                edit = false;  // Reiniciar el modo de edición
+                let template_bar = '';
+                template_bar += `
+                <div class="alert alert-success" role="alert">
+                ${resultado.message}
+                </div>
+                    `;
+                $('#product-result').show();
+                $('#container').html(template_bar);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud:', textStatus, errorThrown);  // Manejo de errores
+            }
         });
     });
 
@@ -151,31 +173,24 @@ $(document).ready(function() {
         } 
     })
 
-    $(document).on('click','.product-item', function(){
-        let element = $(this)[0].parentElement.parentElement;
-        let id = $(element).attr('productId');
-        $.post('backend/product-single.php', { id }, function(response) {
-    const producto = JSON.parse(response);
+    $(document).on('click', '.product-item', function() {
+        let id = $(this)[0].parentElement.parentElement.getAttribute('productid');
+        console.log(id);
+        $.post('./backend/product-single.php', {id}, function(response){
+            const product = JSON.parse(response);
+            $('#name').val(product[0].nombre);
+            let productWithoutNameAndId = {...product[0]};
+            delete productWithoutNameAndId.nombre;
+            delete productWithoutNameAndId.id;
+            delete productWithoutNameAndId.eliminado;
 
-    // Asignar solo el nombre al campo de nombre
-    $('#name').val(producto.Nombre);
+            $('#description').val(JSON.stringify(productWithoutNameAndId, null, 4));
+            edit = true;
 
-    // Crear un objeto excluyendo el nombre
-    const productoSinNombre = {
-        Precio: producto.Precio,
-        Unidades: producto.Unidades,
-        Modelo: producto.Modelo,
-        Marca: producto.Marca,
-        Detalles: producto.Detalles
-    };
+            $('#submit-button').text('Editar Producto');
 
-    // Asignar el resto del objeto a la descripción
-    $('#description').val(JSON.stringify(productoSinNombre, null, 2));
-    $('#productId').val(producto.id)
-    edit = true;
-});
-
-    })
+        })
+    });
 
 });
 
