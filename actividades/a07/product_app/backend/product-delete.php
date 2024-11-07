@@ -1,6 +1,10 @@
 <?php
-    include_once __DIR__.'/database.php';
+    use backend\myapi\Products;
+    include_once __DIR__.'/myapi/Products.php';
 
+    $prodObj = new Products('marketzone');
+    $id = $_GET['id']; $prodObj->delete($id);
+    echo $prodObj->getData();
     // // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
     // $data = array(
     //     'status'  => 'error',

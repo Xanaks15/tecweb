@@ -1,5 +1,11 @@
 <?php
-include_once __DIR__.'/database.php';
+    use backend\myapi\Products;
+    include_once __DIR__.'/myapi/Products.php';
+
+    $prodObj = new Products('marketzone');
+    $prodObj->edit($producto = file_get_contents('php://input'));
+    
+    echo $prodObj->getData();
 
 // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
 // $producto = file_get_contents('php://input');

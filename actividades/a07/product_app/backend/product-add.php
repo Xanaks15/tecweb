@@ -1,6 +1,13 @@
 <?php
-    include_once __DIR__.'/database.php';
+    use backend\myapi\Products;
+    include_once __DIR__.'/myapi/Products.php';
 
+    // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
+    $prodObj = new Products('marketzone');
+    $prodObj->add($producto=file_get_contents('php://input'));
+    echo $prodObj->getData();
+
+    
     // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
     // $producto = file_get_contents('php://input');
     // $data = array(
@@ -32,4 +39,6 @@
 
     // // SE HACE LA CONVERSIÓN DE ARRAY A JSON
     // echo json_encode($data, JSON_PRETTY_PRINT);
+
+
 ?>

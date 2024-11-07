@@ -95,7 +95,7 @@ $(document).ready(function() {
         finalJSON['id'] = document.getElementById('productId').value;
          //VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
         if (!validarJson(finalJSON)) {
-            //   Si la validación falla, detener el proceso de envío
+        //     //   Si la validación falla, detener el proceso de envío
             return;
         }
         productoJsonString = JSON.stringify(finalJSON, null, 2);
@@ -107,7 +107,7 @@ $(document).ready(function() {
             data: JSON.stringify(finalJSON), // Convertir el objeto JSON a string
             contentType: 'application/json; charset=utf-8', // Enviar como JSON
             success: function(response) {
-                console.log(finalJSON);  // Mostrar el JSON enviado
+                // console.log(finalJSON);  // Mostrar el JSON enviado
                 console.log(response);  // Mostrar la respuesta del servidor
                 fetchProduct();  // Actualizar la lista de productos
                   // Resetear el formulario correctamente
@@ -116,6 +116,7 @@ $(document).ready(function() {
                 $('#agregar').text('Agregar Producto');
                 let template_bar = '';
                 let respuesta = JSON.parse(response);
+                console.log(respuesta);
                 template_bar += `
                         <li style="list-style: none;">status: ${respuesta.status}</li>
                         <li style="list-style: none;">message: ${respuesta.message}</li>
@@ -134,7 +135,7 @@ $(document).ready(function() {
             url:'backend/product-list.php',
             type: 'GET',
             success: function(response){
-                console.log(response);
+                // console.log(response);
                 let productos = JSON.parse(response);
                 let template = ``;
     
@@ -180,10 +181,11 @@ $(document).ready(function() {
         if(confirm('Estas seguro de querer eliminar el producto?')){
             let element = $(this)[0].parentElement.parentElement;
             let id = $(element).attr('productId');
+            console.log(id);
             $.get('backend/product-delete.php', {id}, function(response){
-                console.log(response);
                 let template_bar = '';
                 let respuesta = JSON.parse(response);
+                console.log(id);
                 template_bar += `
                         <li style="list-style: none;">status: ${respuesta.status}</li>
                         <li style="list-style: none;">message: ${respuesta.message}</li>
@@ -200,6 +202,7 @@ $(document).ready(function() {
         console.log(id);
         $.post('./backend/product-single.php', {id}, function(response){
             const product = JSON.parse(response);
+            
             $('#name').val(product[0].nombre);
             $('#productId').val(product[0].id);
             let productWithoutNameAndId = {...product[0]};
@@ -217,120 +220,121 @@ $(document).ready(function() {
 
 });
 
-// function validarJson(finalJSON) {
+function validarJson(finalJSON) {
 
-//     // Validar nombre
-//     if (!finalJSON.nombre || finalJSON.nombre.length == 0 ) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Ingresa un nombre</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }else if (finalJSON.nombre.length > 50) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: El nombre debe tener máximo 50 caracteres</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false	
-//     }
-//     // Validar marca
-//     const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
-//     if (!finalJSON.marca || finalJSON.marca.length == 0) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Selecciona una marca</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
-//     if (!marcasValidas.includes(finalJSON.marca)) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Marca no válida, selecciona una válida (Apple, Samsung, Amazon, Sony, Xiaomi)</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
+    // Validar nombre
+    if (!finalJSON.nombre || finalJSON.nombre.length == 0 ) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Ingresa un nombre</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }else if (finalJSON.nombre.length > 50) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: El nombre debe tener máximo 50 caracteres</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false	
+    }
+    // Validar marca
+    const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
+    if (!finalJSON.marca || finalJSON.marca.length == 0) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Selecciona una marca</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
+    if (!marcasValidas.includes(finalJSON.marca)) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Marca no válida, selecciona una válida (Apple, Samsung, Amazon, Sony, Xiaomi)</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
 
-//     // Validar modelo
-//     if (!finalJSON.modelo || finalJSON.modelo.length == 0) {
+    // Validar modelo
+    if (!finalJSON.modelo || finalJSON.modelo.length == 0) {
         
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Ingresa un modelo</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
-//     if (!/^[a-zA-Z0-9 ]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: El modelo debe ser alfanumérico y menor a 25 caracteres</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Ingresa un modelo</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
+    if (!/^-[a-zA-Z0-9-]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: El modelo debe ser alfanumérico y menor a 25 caracteres</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
 
-//     // Validar precio
-//     if (!finalJSON.precio || finalJSON.precio.length == 0) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message:Ingresa el precio</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
-//     if (finalJSON.precio < 99.99) {
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: El precio debe ser mayor a $99.99</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
+    // Validar precio
+    if (!finalJSON.precio || finalJSON.precio.length == 0) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message:Ingresa el precio</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
+    if (finalJSON.precio < 99.99) {
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: El precio debe ser mayor a $99.99</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
 
-//     // Validar detalles
-//     if (finalJSON.detalles && finalJSON.detalles.length > 250) {
+    // Validar detalles
+    if (finalJSON.detalles && finalJSON.detalles.length > 250) {
         
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Los detalles deben tener máximo 250 caracteres</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Los detalles deben tener máximo 250 caracteres</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
 
-//     // Validar unidades
-//     if (finalJSON.unidades == null || finalJSON.unidades < 0) {
+    // Validar unidades
+    if (finalJSON.unidades == null || finalJSON.unidades < 0) {
 
-//         let template_bar = '';
-//         template_bar += `
-//             <li style="list-style: none;">message: Cantidad mínima de unidades es 0</li>
-//             `;
-//             $('#product-result').show();
-//             $('#container').html(template_bar);
-//         return false;
-//     }
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">message: Cantidad mínima de unidades es 0</li>
+            `;
+            $('#product-result').show();
+            $('#container').html(template_bar);
+        return false;
+    }
 
-//     // Validar imagen
-//     if (!finalJSON.imagen || finalJSON.imagen.length == 0) {
-//         finalJSON.imagen = 'img/default.png';  // Asignar una imagen por defecto
-//     }
+    // Validar imagen
+    if (!finalJSON.imagen || finalJSON.imagen.length == 0) {
+        finalJSON.imagen = 'img/default.png';  // Asignar una imagen por defecto
+    }
 
-//     // Si pasa todas las validaciones
-//     return true;
-// }
+    // Si pasa todas las validaciones
+    return true;
+}
+
 
 function resetForm() {
     // Limpiar todos los campos del formulario

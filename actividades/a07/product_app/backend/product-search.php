@@ -1,5 +1,12 @@
 <?php
-    include_once __DIR__.'/database.php';
+    use backend\myapi\Products;
+    include_once __DIR__.'/myapi/Products.php';
+
+    $prodObj = new Products('marketzone');
+    $search = $_GET['search'];  $prodObj->search($search);
+    
+    echo $prodObj->getData();
+
 
     // // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
     // $data = array();
