@@ -134,6 +134,7 @@ $(document).ready(function() {
             url:'backend/product-list.php',
             type: 'GET',
             success: function(response){
+                console.log(response);
                 let productos = JSON.parse(response);
                 let template = ``;
     
@@ -216,120 +217,120 @@ $(document).ready(function() {
 
 });
 
-function validarJson(finalJSON) {
+// function validarJson(finalJSON) {
 
-    // Validar nombre
-    if (!finalJSON.nombre || finalJSON.nombre.length == 0 ) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Ingresa un nombre</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }else if (finalJSON.nombre.length > 50) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: El nombre debe tener máximo 50 caracteres</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false	
-    }
-    // Validar marca
-    const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
-    if (!finalJSON.marca || finalJSON.marca.length == 0) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Selecciona una marca</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
-    if (!marcasValidas.includes(finalJSON.marca)) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Marca no válida, selecciona una válida (Apple, Samsung, Amazon, Sony, Xiaomi)</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
+//     // Validar nombre
+//     if (!finalJSON.nombre || finalJSON.nombre.length == 0 ) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Ingresa un nombre</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }else if (finalJSON.nombre.length > 50) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: El nombre debe tener máximo 50 caracteres</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false	
+//     }
+//     // Validar marca
+//     const marcasValidas = ['Apple', 'Samsung', 'Amazon', 'Sony', 'Xiaomi'];
+//     if (!finalJSON.marca || finalJSON.marca.length == 0) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Selecciona una marca</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
+//     if (!marcasValidas.includes(finalJSON.marca)) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Marca no válida, selecciona una válida (Apple, Samsung, Amazon, Sony, Xiaomi)</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
 
-    // Validar modelo
-    if (!finalJSON.modelo || finalJSON.modelo.length == 0) {
+//     // Validar modelo
+//     if (!finalJSON.modelo || finalJSON.modelo.length == 0) {
         
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Ingresa un modelo</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
-    if (!/^[a-zA-Z0-9 ]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: El modelo debe ser alfanumérico y menor a 25 caracteres</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Ingresa un modelo</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
+//     if (!/^[a-zA-Z0-9 ]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: El modelo debe ser alfanumérico y menor a 25 caracteres</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
 
-    // Validar precio
-    if (!finalJSON.precio || finalJSON.precio.length == 0) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message:Ingresa el precio</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
-    if (finalJSON.precio < 99.99) {
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: El precio debe ser mayor a $99.99</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
+//     // Validar precio
+//     if (!finalJSON.precio || finalJSON.precio.length == 0) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message:Ingresa el precio</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
+//     if (finalJSON.precio < 99.99) {
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: El precio debe ser mayor a $99.99</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
 
-    // Validar detalles
-    if (finalJSON.detalles && finalJSON.detalles.length > 250) {
+//     // Validar detalles
+//     if (finalJSON.detalles && finalJSON.detalles.length > 250) {
         
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Los detalles deben tener máximo 250 caracteres</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Los detalles deben tener máximo 250 caracteres</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
 
-    // Validar unidades
-    if (finalJSON.unidades == null || finalJSON.unidades < 0) {
+//     // Validar unidades
+//     if (finalJSON.unidades == null || finalJSON.unidades < 0) {
 
-        let template_bar = '';
-        template_bar += `
-            <li style="list-style: none;">message: Cantidad mínima de unidades es 0</li>
-            `;
-            $('#product-result').show();
-            $('#container').html(template_bar);
-        return false;
-    }
+//         let template_bar = '';
+//         template_bar += `
+//             <li style="list-style: none;">message: Cantidad mínima de unidades es 0</li>
+//             `;
+//             $('#product-result').show();
+//             $('#container').html(template_bar);
+//         return false;
+//     }
 
-    // Validar imagen
-    if (!finalJSON.imagen || finalJSON.imagen.length == 0) {
-        finalJSON.imagen = 'img/default.png';  // Asignar una imagen por defecto
-    }
+//     // Validar imagen
+//     if (!finalJSON.imagen || finalJSON.imagen.length == 0) {
+//         finalJSON.imagen = 'img/default.png';  // Asignar una imagen por defecto
+//     }
 
-    // Si pasa todas las validaciones
-    return true;
-}
+//     // Si pasa todas las validaciones
+//     return true;
+// }
 
 function resetForm() {
     // Limpiar todos los campos del formulario
