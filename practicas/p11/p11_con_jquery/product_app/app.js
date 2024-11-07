@@ -17,6 +17,7 @@ function init() {
     document.getElementById("description").value = JsonString;
     // fetchProduct();
 }
+ 
 
 $(document).ready(function() {
     let edit = false;
@@ -90,6 +91,7 @@ $(document).ready(function() {
         
         // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
         finalJSON['nombre'] = document.getElementById('name').value;
+        // Asignar el ID al objeto JSON
         finalJSON['id'] = document.getElementById('productId').value;
          //VALIDAR EL OBJETO JSON ANTES DE ENVIARLO
         if (!validarJson(finalJSON)) {
@@ -97,7 +99,7 @@ $(document).ready(function() {
             return;
         }
         productoJsonString = JSON.stringify(finalJSON, null, 2);
-        // Asignar el ID al objeto JSON
+        
         let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
         $.ajax({
             url: url,
@@ -111,6 +113,7 @@ $(document).ready(function() {
                   // Resetear el formulario correctamente
                 resetForm();
                 edit = false;  // Reiniciar el modo de edición
+                $('#agregar').text('Agregar Producto');
                 let template_bar = '';
                 let respuesta = JSON.parse(response);
                 template_bar += `
@@ -204,6 +207,10 @@ $(document).ready(function() {
             delete productWithoutNameAndId.eliminado;
             $('#description').val(JSON.stringify(productWithoutNameAndId, null, 4));
             edit = true;
+            //Cambiar texto a boton btn prymari*/
+            console.log;
+            $('#agregar').text('Guardar cambios');
+
         })
     });
 
@@ -334,3 +341,4 @@ function resetForm() {
     // Limpiar el campo del ID del producto
     $('#productId').val('');
 }
+
