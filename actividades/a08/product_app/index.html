@@ -6,7 +6,7 @@
     <!-- BOOTSTRAP 4  -->
     <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
   </head>
-  <body onload="init()">
+  <body>
 
     <!-- BARRA DE NAVEGACIÓN  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,18 +30,23 @@
           <div class="card">
             <div class="card-body">
               <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
-              <form id="product-form">
+              <form id="product-form" onsubmit="return checkForm()">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto">
+                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto" onblur="checkName()"><br>
+                  <input class="form-control" type="text" name="marca" placeholder="Marca del producto" id="form-marca" required onblur="checkMarca()"><br/>
+                  <input class="form-control"type="text" name="modelo" placeholder="Modelo del producto"id="form-modelo" required onblur="checkModel()"><br/>
+                  <input class="form-control"type="number" step="0.01" name="precio" placeholder="Sheintavos, no texto"id="form-precio" required onblur="checkPrice()"><br/>
+                  <textarea class="form-control" name="detalles" rows="4" cols="45" id="form-detalles" placeholder="No más de 300 caracteres de longitud" required onblur="checkDetalles()"></textarea><br/>
+                  <input class="form-control" type="number" name="unidades" placeholder="Mayor a 0" id="form-unidades" min="1" required onblur="checkUnidades()"><br/>
+                  <input class="form-control" type="text" name="imagen" placeholder="URL image" id="form-imagen" required onblur="checkImg()"><br/>
                 </div>
-                <div class="form-group">
-                  <textarea class="form-control" id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea>
-                </div>
+                
                 <input type="hidden" id="productId">
                 <button class="btn btn-primary btn-block text-center" id="agregar" type="submit" >
                   Agregar Producto
                 </button>
               </form>
+
             </div>
           </div>
         </div>
