@@ -272,7 +272,7 @@ function validarJson(finalJSON) {
             $('#container').html(template_bar);
         return false;
     }
-    if (!/^-[a-zA-Z0-9-]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
+    if (!-/^[a-zA-Z0-9-]+$/.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
         let template_bar = '';
         template_bar += `
             <li style="list-style: none;">message: El modelo debe ser alfanumérico y menor a 25 caracteres</li>
