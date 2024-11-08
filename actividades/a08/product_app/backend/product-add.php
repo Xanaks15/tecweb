@@ -5,6 +5,7 @@
     // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
     $prodObj = new Products('marketzone');
     $prodObj->add($producto=file_get_contents('php://input'));
+    
     echo $prodObj->getData();
 
     

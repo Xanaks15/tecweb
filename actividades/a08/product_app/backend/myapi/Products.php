@@ -18,8 +18,8 @@
                 'message' => 'Ya existe un producto con ese nombre'
             );
             if(!empty($jsonOB)) {
-                // SE TRANSFORMA EL STRING DEL JSON A OBJETO
                 $jsonOBJ = json_decode($jsonOB);
+                
                 // SE ASUME QUE LOS DATOS YA FUERON VALIDADOS ANTES DE ENVIARSE
                 $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
                 $result = $this->conexion->query($sql);
@@ -168,33 +168,24 @@
             } 
 
         }
-
-        public function searchByName($dato){
+        
+        public function searchByName($search){
             $this->data = array();
-            // SE VERIFICA HABER RECIBIDO LA BUSQUEDA
-            if( isset($dato) ) {
-                $search = $dato;
+           // SE VERIFICA HABER RECIBIDO EL NOMBRE
+            $name = $search;
+            if( isset($name) ) {
                 // SE REALIZA LA QUERY DE BÚSQUEDA Y AL MISMO TIEMPO SE VALIDA SI HUBO RESULTADOS
-                $sql = "SELECT * FROM productos WHERE (id = '{$search}' OR nom AND eliminado = 0";
-                if ( $result = $this->conexion->query($sql) ) {
-                    // SE OBTIENEN LOS RESULTADOS
-                    $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-                    if(!is_null($rows)) {
-                        // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
-                        foreach($rows as $num => $row) {
-                            foreach($row as $key => $value) {
-                                $this->data[$num][$key] = utf8_encode($value);
-                            }
-                        }
-                    }
-                    $result->free();
-                } else {
-                    die('Query Error: '.mysqli_error($this->conexion));
+                $sql = "SELECT * FROM productos WHERE nombre = '{$name}' AND eliminado = 0";
+                if($result = $this->conexion->query($sql)){
+                    if ( $result->num_rows > 0) {
+                        $this->data['status'] =  "success";
+                        $this->data['message'] =  "Nombre ya registrado";
+                        
+                    } 
                 }
+                
                 $this->conexion->close();
             } 
-
         }
         public function single($id_){
             $this->data = array();

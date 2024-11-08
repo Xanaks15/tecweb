@@ -54,56 +54,71 @@ $(document).ready(function() {
         }else {
             // Si el campo de búsqueda está vacío, restablecer la página al estado inicial
             fetchProduct();  // Llama a la función para obtener la lista completa de productos
-            resetForm();     // Resetea el formulario
             $('#product-result').hide();  // Oculta el contenedor de resultados
         }
     });
 
     //checar si ya existe el nombre en la base de datos
     $('#product-result').hide(); 
-
     $('#name').keyup(function() {
         let nombre = $('#name').val();
-        if(nombre){
-            
+        console.log(nombre);
+        if(nombre){    
             $.ajax({
-                url: 'backend/product-singleByName.php',
+                url: 'backend/product-searchByName.php',
                 type: 'GET',
                 data: {nombre},
                 success: function(response){
                     // console.log(response);
                     console.log(response);
-                    let template_bar = "Ya existe un producto con ese nombre";
-                    $('#product-result').show();
-                    $('#container').html(template_bar);
+                    let template_bar = '';
+                    let respuesta = JSON.parse(response);
+                    if (respuesta.status === 'success') { // Solo muestra el mensaje si encuentra un producto
+                        template_bar += `
+                            <li style="list-style: none;">${respuesta.message}</li>
+                        `;
+                        $('#name-alert').show();
+                        $('#name-alert').html(template_bar);
+                    }
                     fetchProduct();
                 }
                 
             })
         }else {
             fetchProduct();  // Llama a la función para obtener la lista completa de productos
-            resetForm();     // Resetea el formulario
-            $('#product-result').hide();  // Oculta el contenedor de resultados
+            $('#name-alert').hide();  // Oculta el contenedor de resultados
         }
     });
+
+
     // agregarProducto
 
     $('#product-form').submit(function(e){
         e.preventDefault();
-        let nombre = $('#name').val();
-        let descripcion = $('#description').val();
-        
+        const postData = {
+            nombre:$('#name').val(),
+            marca:$('#form-marca').val(),
+            modelo:$('#form-modelo').val(),
+            precio:$('#form-precio').val(),
+            detalles:$('#form-detalles').val(),
+            unidades:$('#form-unidades').val(),
+            imagen:$('#form-imagen').val(),
+        };
+        console.log(postData);
         let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
+        if (!checkForm()) {
+            //   Si la validación falla, detener el proceso de envío
+            return;
+        }
         $.ajax({
             url: url,
             type: 'POST',
-            data: JSON.stringify(finalJSON), // Convertir el objeto JSON a string
-            contentType: 'application/json; charset=utf-8', // Enviar como JSON
+            contentType: 'application/json',
+            data: JSON.stringify(postData),
             success: function(response) {
-                // console.log(finalJSON);  // Mostrar el JSON enviado
+                console.log(postData);
                 console.log(response);  // Mostrar la respuesta del servidor
                 fetchProduct();  // Actualizar la lista de productos
-                  // Resetear el formulario correctamente
                 resetForm();
                 edit = false;  // Reiniciar el modo de edición
                 $('#agregar').text('Agregar Producto');
@@ -196,13 +211,14 @@ $(document).ready(function() {
         $.post('./backend/product-single.php', {id}, function(response){
             const product = JSON.parse(response);
             
-            $('#name').val(product[0].nombre);
             $('#productId').val(product[0].id);
-            let productWithoutNameAndId = {...product[0]};
-            delete productWithoutNameAndId.nombre;
-            delete productWithoutNameAndId.id;
-            delete productWithoutNameAndId.eliminado;
-            $('#description').val(JSON.stringify(productWithoutNameAndId, null, 4));
+            $('#name').val(product[0].nombre);
+            $('#form-marca').val(product[0].marca);
+            $('#form-modelo').val(product[0].modelo);
+            $('#form-precio').val(product[0].precio);
+            $('#form-detalles').val(product[0].detalles);
+            $('#form-unidades').val(product[0].unidades);
+            $('#form-imagen').val(product[0].imagen);
             edit = true;
             //Cambiar texto a boton btn prymari*/
             console.log;
@@ -216,55 +232,85 @@ $(document).ready(function() {
 function checkName(){
     var nombre = document.getElementById('name').value;
     if(nombre.length == 0){
-        alert('Ingresa un nombre');
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">Ingresa un nombre</li>
+            `;
+            $('#name-alert').show();
+            $('#name-alert').html(template_bar);
         return false;
     }
-    else{
+    if($('#name').val()){
+        $('#name-alert').hide();
         if(nombre.length > 100){
-            alert('El nombre debe tener maximo 100 caracteres');
-            document.getElementById('nombre').value = '';
+            let template_bar = '';
+            template_bar += `
+            <li style="list-style: none;">El nombre debe tener máximo 50 caracteres</li>
+            `;
+            $('#name-alert').show();
+            $('#name-alert').html(template_bar);
             return false;
         }
-    return true;
+        return true;
     }
+    
+    
 }
 
 function checkMarca(){
-    var marca = document.getElementById('marca').value;
-    if(marca.length == 0){
-        alert('Selecciona una marca');
+    var marca = document.getElementById('form-marca').value;
+    if(marca.length === 0){
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">Selecciona una marca</li>
+            `;
+            $('#marca-alert').show();
+            $('#marca-alert').html(template_bar);
         return false;
     } 
     else{
         switch(marca) {
-            case 'Apple':
-            case 'Samsung': 
-            case 'Amazon': 
-            case 'Sony':
-            case 'Xiaomi':
+            case 'Apple': $('#marca-alert').hide();
+            case 'Samsung': $('#marca-alert').hide();
+            case 'Amazon': $('#marca-alert').hide();
+            case 'Sony':$('#marca-alert').hide();
+            case 'Xiaomi':$('#marca-alert').hide();
                 return true;
-                val[2]=0
             default:
-                checkMarca();
+                $('#marca-alert').show();
+                $('#marca-alert').html(template_bar);
                 return false;
         }
     }
 }
 
 function checkModel(){
-    var modelo = document.getElementById('modelo').value;
+    var modelo = document.getElementById('form-modelo').value;
     
     // Verifica si el campo está vacío
     if (modelo.length == 0) {
-        alert('Ingresa un modelo');
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">Ingresa un modelo</li>
+            `;
+            $('#modelo-alert').show();
+            $('#modelo-alert').html(template_bar);
         return false;
     } 
     else {
         // Valida que sea alfanumérico y menor a 25 caracteres
-        if (!/^[a-zA-Z0-9 ]+$/.test(modelo) || modelo.length > 25) {
-            alert('El modelo debe ser alfanumérico y menor a 25 caracteres');
-            document.getElementById('modelo').value = '';
-            return false;
+        $('#modelo-alert').hide();
+        if($('#marca-alert').val()){
+            $('#modelo-alert').hide();
+            if (!/^-[a-zA-Z0-9 ]+$/.test(modelo) || modelo.length > 25) {
+                let template_bar = '';
+                template_bar += `
+                <li style="list-style: none;">El modelo debe ser alfanumérico y menor a 25 caracteres</li>
+                `;
+                $('#modelo-alert').show();
+                $('#modelo-alert').html(template_bar);
+                return false;
+            }
         }
     }  
     return true; 
@@ -272,15 +318,26 @@ function checkModel(){
 
 
 function checkPrice(){
-    var precio = document.getElementById('precio').value;
+    var precio = document.getElementById('form-precio').value;
     if(precio.length == 0){
-        alert('Ingresa el precio');
+        let template_bar = '';
+        template_bar += `
+            <li style="list-style: none;">Ingresa el precio</li>
+            `;
+            $('#precio-alert').show();
+            $('#precio-alert').html(template_bar);
         return false;
 
     }
     else{
+        $('#precio-alert').hide();
         if(precio < 99.99){
-            alert('El precio debe ser mayor a $99.99');
+            let template_bar = '';
+            template_bar += `
+            <li style="list-style: none;">El precio debe ser mayor a $99.99</li>
+            `;
+            $('#precio-alert').show();
+            $('#precio-alert').html(template_bar);
             document.getElementById('precio').value = '';
             return false;
         }
@@ -289,10 +346,15 @@ function checkPrice(){
 }
 
 function checkDetalles(){
-    var detalles = document.getElementById('detalles').value;
+    var detalles = document.getElementById('form-detalles').value;
     if(detalles.length > 0){
         if(detalles.length > 250){
-            alert('Los etalles deben tener maximo 250 caracteres');
+            let template_bar = '';
+            template_bar += `
+            <li style="list-style: none;">Los detalles deben tener máximo 250 caracteres</li>
+            `;
+            $('#detalles-alert').show();
+            $('#detalles-alert').html(template_bar);
             document.getElementById('detalles').value = '';
             return false;
         }
@@ -301,40 +363,30 @@ function checkDetalles(){
 }
 
 function checkUnidades(){
-    var unidades = document.getElementById('unidades').value;
-    if(unidades.length == 0){
-        while(unidades.length == 0){
-            alert('Ingresa la cantidad de unidades');
-            return false;
-        }
+    var unidades = document.getElementById('form-unidades').value;
+    if(unidades < 0 || unidades.length ===0){
+        let template_bar = '';
+        template_bar += `
+        <li style="list-style: none;">Cantidad mínima de unidades es 0</li>
+        `;
+        $('#unidades-alert').show();
+        $('#unidades-alert').html(template_bar);
+        return false;
     }
-    else{
-        if(unidades < 0){
-            alert('Cantidad minima 0');
-            document.getElementById('unidades').value = '';
-            return false;
-        }
+    if($('#form-unidades').val()){
+        $('#unidades-alert').hide();
+        return true;
     }
     return true;
+    
 }
 
 function checkImg(){
-    var imagen = document.getElementById('imagen').value;
+    var imagen = document.getElementById('form-imagen').value;
     if(imagen.length == 0){
-        document.getElementById('imagen').value = 'img/pre.png';
+        document.getElementById('form-imagen').value = 'img/default.png';
         return true;
-        val[7]=0
     }
-    
-    /*else{
-        if(imagen.length > 0){
-            if(!/^img\/\w+\.(jpg|png)$/.test(imagen)){
-                alert('URL no valida. Debe ser en el formato img/nombre.(jpg o png)');
-                document.getElementById('imagen').value = '';
-                return false;
-            }
-        }
-    }*/
     return true;
 }
 
@@ -348,6 +400,11 @@ function checkForm(){
     }
 }
 
-function resetForm() {
-    document.getElementById('product-form').reset();
+function resetForm(){
+    document.getElementById('name').value='';
+    document.getElementById('form-marca').value='';
+    document.getElementById('form-modelo').value='';
+    document.getElementById('form-detalles').value='';
+    document.getElementById('form-unidades').value='';
+    document.getElementById('form-imagen').value='';
 }
