@@ -12,7 +12,7 @@ $(document).ready(function() {
                 type: 'GET',
                 data: {search},
                 success: function(response){
-                    console.log(response);
+                    // console.log(response);
                     let productos = JSON.parse(response);
                     let template = '';
                     let template_bar = '';
@@ -62,15 +62,14 @@ $(document).ready(function() {
     $('#product-result').hide(); 
     $('#name').keyup(function() {
         let nombre = $('#name').val();
-        console.log(nombre);
+        // console.log(nombre);
         if(nombre){    
             $.ajax({
                 url: 'backend/product-searchByName.php',
                 type: 'GET',
                 data: {nombre},
                 success: function(response){
-                    // console.log(response);
-                    console.log(response);
+                     console.log(response);
                     let template_bar = '';
                     let respuesta = JSON.parse(response);
                     if (respuesta.status === 'success') { // Solo muestra el mensaje si encuentra un producto
@@ -79,7 +78,9 @@ $(document).ready(function() {
                         `;
                         $('#name-alert').show();
                         $('#name-alert').html(template_bar);
-                    }
+                    }else{
+                        $('#name-alert').hide();
+                    } 
                     fetchProduct();
                 }
                 
@@ -96,6 +97,7 @@ $(document).ready(function() {
     $('#product-form').submit(function(e){
         e.preventDefault();
         const postData = {
+            id:$('#productId').val(),
             nombre:$('#name').val(),
             marca:$('#form-marca').val(),
             modelo:$('#form-modelo').val(),
@@ -104,7 +106,7 @@ $(document).ready(function() {
             unidades:$('#form-unidades').val(),
             imagen:$('#form-imagen').val(),
         };
-        console.log(postData);
+        // console.log(postData);
         let url = edit === false ? 'backend/product-add.php' : 'backend/product-edit.php';
         if (!checkForm()) {
             //   Si la validación falla, detener el proceso de envío
@@ -116,18 +118,18 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(postData),
             success: function(response) {
-                console.log(postData);
-                console.log(response);  // Mostrar la respuesta del servidor
+                // console.log(postData);
+                // console.log(response);  // Mostrar la respuesta del servidor
                 fetchProduct();  // Actualizar la lista de productos
                 resetForm();
                 edit = false;  // Reiniciar el modo de edición
                 $('#agregar').text('Agregar Producto');
                 let template_bar = '';
                 let respuesta = JSON.parse(response);
-                console.log(respuesta);
+                // console.log(respuesta);
                 template_bar += `
-                        <li style="list-style: none;">status: ${respuesta.status}</li>
-                        <li style="list-style: none;">message: ${respuesta.message}</li>
+                        <li style="list-style: none;">${respuesta.status}</li>
+                        <li style="list-style: none;">${respuesta.message}</li>
                     `;
                 $('#product-result').show();
                 $('#container').html(template_bar);
@@ -189,11 +191,11 @@ $(document).ready(function() {
         if(confirm('Estas seguro de querer eliminar el producto?')){
             let element = $(this)[0].parentElement.parentElement;
             let id = $(element).attr('productId');
-            console.log(id);
+            // console.log(id);
             $.get('backend/product-delete.php', {id}, function(response){
                 let template_bar = '';
                 let respuesta = JSON.parse(response);
-                console.log(id);
+                // console.log(id);
                 template_bar += `
                         <li style="list-style: none;">status: ${respuesta.status}</li>
                         <li style="list-style: none;">message: ${respuesta.message}</li>
@@ -207,11 +209,11 @@ $(document).ready(function() {
 
     $(document).on('click', '.product-edit', function() {
         let id = $(this)[0].parentElement.parentElement.getAttribute('productid');
-        console.log(id);
+        // console.log(id);
         $.post('./backend/product-single.php', {id}, function(response){
             const product = JSON.parse(response);
-            
             $('#productId').val(product[0].id);
+            // console.log(id);
             $('#name').val(product[0].nombre);
             $('#form-marca').val(product[0].marca);
             $('#form-modelo').val(product[0].modelo);
@@ -221,7 +223,6 @@ $(document).ready(function() {
             $('#form-imagen').val(product[0].imagen);
             edit = true;
             //Cambiar texto a boton btn prymari*/
-            console.log;
             $('#agregar').text('Guardar cambios');
 
         })
@@ -241,7 +242,6 @@ function checkName(){
         return false;
     }
     if($('#name').val()){
-        $('#name-alert').hide();
         if(nombre.length > 100){
             let template_bar = '';
             template_bar += `

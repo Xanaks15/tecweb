@@ -180,10 +180,8 @@
                     if ( $result->num_rows > 0) {
                         $this->data['status'] =  "success";
                         $this->data['message'] =  "Nombre ya registrado";
-                        
                     } 
-                }
-                
+                }      
                 $this->conexion->close();
             } 
         }
@@ -192,12 +190,9 @@
 
             if( isset($id_)) {
                 $id = $id_;
-
                 $sql = "SELECT * FROM productos WHERE id = '{$id}'";
-
                 if ( $result = $this->conexion->query($sql) ) {
                     $rows = $result->fetch_all(MYSQLI_ASSOC);
-
                     if(!is_null($rows)) {
                         foreach($rows as $num => $row) {
                             foreach($row as $key => $value) {
