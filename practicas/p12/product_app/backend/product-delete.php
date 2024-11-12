@@ -1,8 +1,8 @@
 <?php
-    use backend\myapi\Products;
-    include_once __DIR__.'/myapi/Products.php';
+    use p12\backend\myapi\Delete;
+    include_once __DIR__.'/myapi/Delete.php';
 
-    $prodObj = new Products('marketzone');
+    $prodObj = new Delete('marketzone');
     $id = $_GET['id']; $prodObj->delete($id);
     echo $prodObj->getData();
     // // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON

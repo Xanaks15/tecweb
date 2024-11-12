@@ -1,8 +1,8 @@
 <?php
-    use backend\myapi\Products;
-    include_once __DIR__.'/myapi/Products.php';
+    use p12\backend\myapi\Read;
+    include_once __DIR__.'/myapi/Read.php';
 
-    $prodObj = new Products('marketzone');
+    $prodObj = new Read('marketzone');
     $id = $_POST['id'];  $prodObj->single($id);
     
     echo $prodObj->getData();

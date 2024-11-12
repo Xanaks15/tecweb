@@ -1,8 +1,8 @@
 <?php
-    use backend\myapi\Products;
-    include_once __DIR__.'/myapi/Products.php';
+    use p12\backend\myapi\Update;
+    include_once __DIR__.'/myapi/Update.php';
 
-    $prodObj = new Products('marketzone');
+    $prodObj = new Update('marketzone');
     $prodObj->edit($producto = file_get_contents('php://input'));
     
     echo $prodObj->getData();

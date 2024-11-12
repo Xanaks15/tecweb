@@ -1,5 +1,5 @@
 <?php
-    namespace a09\backend\myapi;
+    namespace p12\backend\myapi;
     abstract class DataBase{
         protected $conexion;
         protected $data;
@@ -18,7 +18,7 @@
             }
         }
         
-        protected function getData(){
+        public function getData(){
             return json_encode($this->data, JSON_PRETTY_PRINT);
         }
     }
