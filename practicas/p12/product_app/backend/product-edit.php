@@ -1,6 +1,6 @@
 <?php
     use p12\backend\myapi\Update;
-    include_once __DIR__.'/myapi/Update.php';
+    include_once __DIR__.'/vendor/autoload.php';
 
     $prodObj = new Update('marketzone');
     $prodObj->edit($producto = file_get_contents('php://input'));

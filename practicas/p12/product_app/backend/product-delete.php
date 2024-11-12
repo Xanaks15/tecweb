@@ -1,6 +1,6 @@
 <?php
     use p12\backend\myapi\Delete;
-    include_once __DIR__.'/myapi/Delete.php';
+    include_once __DIR__.'/vendor/autoload.php';
 
     $prodObj = new Delete('marketzone');
     $id = $_GET['id']; $prodObj->delete($id);

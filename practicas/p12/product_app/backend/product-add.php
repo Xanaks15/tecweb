@@ -1,6 +1,6 @@
 <?php
     use p12\backend\myapi\Create;
-    include_once __DIR__.'/myapi/Create.php';
+    include_once __DIR__.'/vendor/autoload.php';
 
     // SE OBTIENE LA INFORMACIÓN DEL PRODUCTO ENVIADA POR EL CLIENTE
     $prodObj = new Create('marketzone');

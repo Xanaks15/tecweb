@@ -1,6 +1,6 @@
 <?php
     use p12\backend\myapi\Read;
-    include_once __DIR__.'/myapi/Read.php';
+    include_once __DIR__.'/vendor/autoload.php';
 
     $prodObj = new Read('marketzone');
     $prodObj->list();
