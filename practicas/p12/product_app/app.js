@@ -10,7 +10,7 @@ $(document).ready(function() {
             $.ajax({
                 url: 'backend/product-search.php',
                 type: 'GET',
-                data: {search},
+                data: {search}, 
                 success: function(response){
                     // console.log(response);
                     let productos = JSON.parse(response);

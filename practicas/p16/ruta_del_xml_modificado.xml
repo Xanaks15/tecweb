@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="catalogovod.xsl"?>
+<catalogovod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="serviciovod_ep.xsd">
+    <cuenta correo="josue.torres@gmail.com">
+        <perfiles> 
+            <perfil usuario="Ana" idioma="Espaniol"/>
+            <perfil usuario="Josue" idioma="Espaniol"/>
+        <perfil usuario="" idioma=""><peliculas><titulo/><titulo/></peliculas><series/></perfil></perfiles>
+    </cuenta>
+    <contenido>
+        <peliculas region="MEX">
+            <genero nombre="Terror">
+                <titulo duracion="125 minutos">Sonrie</titulo>
+                <titulo duracion="150 minutos">El Callejon de las Almas Perdidas</titulo>
+                <titulo duracion="110 minutos">El Faro</titulo>
+                <titulo duracion="109 minutos">Psicosis</titulo>
+            </genero>
+            <genero nombre="Ciencia Ficcion">
+                <titulo duracion="117 minutos">Alien - El Octavo Pasajero</titulo>
+                <titulo duracion="117 minutos">Blade Runner</titulo>
+                <titulo duracion="129 min minutos">2001: Odisea del Espacio</titulo>
+                <titulo duracion="169 minutos">Interestelar</titulo>
+            </genero>
+        </peliculas>
+
+        <series region="USA">
+            <genero nombre="Terror">
+                <titulo duracion="177 capitulos">The Walking Dead</titulo>
+                <titulo duracion="76 capitulos">La Hora Embrujada</titulo>
+                <titulo duracion="9 capitulos">Marianne</titulo>
+                <titulo duracion="10 capitulos">Territorio Lovecraft</titulo>
+            </genero>
+            <genero nombre="Drama">
+                <titulo duracion="62 capitulos">Breaking Bad</titulo>
+                <titulo duracion="73 capitulos">Juego de Tronos</titulo>
+                <titulo duracion="19 capitulos">Black Mirror</titulo>
+                <titulo duracion="26 capitulos">Dark</titulo>
+            </genero>
+        </series>
+    </contenido>
+</catalogovod>

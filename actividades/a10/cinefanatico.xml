@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cinefanatico SYSTEM "cinefanatico.dtd">
+
+<cinefanatico>
+    <tarjeta noserie="1" visitas="345" puntos="10">
+        <nombre>Josue Saul</nombre>
+        <correo>josue3@gmail.com</correo>
+        <telefono tipo="movil">2491345096</telefono>
+    </tarjeta>
+</cinefanatico>

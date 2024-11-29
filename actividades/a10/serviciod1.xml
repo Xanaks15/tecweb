@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogovod>
+    <cuenta>
+        <correo>josue.torres@gmail.com</correo>
+        <perfiles>
+            <perfil>
+                <usuario>Clara</usuario>
+                <idioma>Español</idioma>
+            </perfil>
+            <perfil>
+                <usuario>Josué</usuario>
+                <idioma>Español</idioma>
+            </perfil>
+        </perfiles>
+    </cuenta>
+    <contenido>
+        <peliculas>
+            <genero>
+                <nombre>Terror</nombre>
+                <titulo>
+                    <nombre>Sonrie</nombre>
+                    <duracion>125 minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>El Callejon de las Almas Perdidas</nombre>
+                    <duracion>150 minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>El Faro</nombre>
+                    <duracion>110 minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Psicosis</nombre>
+                    <duracion>109 minutos</duracion>
+                </titulo>
+            </genero>
+            <genero>
+                <nombre>Ciencias Ficción</nombre>
+                <titulo>
+                    <nombre>Alien - El Octavo Pasajero</nombre>
+                    <duracion>117 minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Blade Runner</nombre>
+                    <duracion>117 minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>2001: Odisea del Espacio</nombre>
+                    <duracion>129 min minutos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Interestelar</nombre>
+                    <duracion>169 minutos</duracion>
+                </titulo>
+            </genero>
+        </peliculas>
+
+        <programas>
+            <genero>
+                <nombre>Terror</nombre>
+                <titulo>
+                    <nombre>The Walking Dead</nombre>
+                    <duracion>177 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>La Hora Embrujada</nombre>
+                    <duracion>76 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Marianne</nombre>
+                    <duracion>9 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Territorio Lovecraft</nombre>
+                    <duracion>10 capitulos</duracion>
+                </titulo>
+            </genero>
+            <genero>
+                <nombre>Drama</nombre>
+                <titulo>
+                    <nombre>Breaking Bad</nombre>
+                    <duracion>62 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Juego de Tronos</nombre>
+                    <duracion>73 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Black Mirror</nombre>
+                    <duracion>19 capitulos</duracion>
+                </titulo>
+                <titulo>
+                    <nombre>Dark</nombre>
+                    <duracion>26 capitulos</duracion>
+                </titulo>
+            </genero>
+        </programas>
+    </contenido>
+</catalogovod>
